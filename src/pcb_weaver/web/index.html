@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PCB Weaver | Engineering Workbench</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+    <script defer src="/assets/vendor/lucide.min.js"></script>
+    <script defer src="/assets/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <i data-lucide="circuit-board"></i><strong>PCB WEAVER</strong
+        ><span>ENGINEERING</span>
+      </div>
+      <div class="topright">
+        <span id="connection" class="connection">连接中</span
+        ><button id="environment" class="icon" title="工具环境">
+          <i data-lucide="server-cog"></i></button
+        ><button id="refresh" class="icon" title="刷新工程">
+          <i data-lucide="refresh-cw"></i>
+        </button>
+      </div>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="section-title">
+          <span>工程空间</span
+          ><button id="new-project" class="icon" title="导入工程">
+            <i data-lucide="plus"></i>
+          </button>
+        </div>
+        <div id="projects" class="projects"></div>
+        <div class="sidebar-bottom">
+          <div class="section-title">工程基准</div>
+          <div id="presets"></div>
+          <div class="local-label">
+            <i data-lucide="hard-drive"></i> 本地工程数据
+          </div>
+        </div>
+      </aside>
+      <main>
+        <div class="projectbar">
+          <div class="project-heading">
+            <span class="eyebrow">PCB WORKSPACE</span>
+            <h1 id="project-title">工程工作台</h1>
+          </div>
+          <select id="revision-select" aria-label="工程版本">
+            <option>选择工程版本</option>
+          </select>
+          <div class="project-actions">
+            <button id="constraints" class="icon" title="设计约束">
+              <i data-lucide="sliders-horizontal"></i></button
+            ><button id="run-plan" title="生成布局候选">
+              <i data-lucide="layout-grid"></i><span>布局</span></button
+            ><button id="run-route" title="自动布线">
+              <i data-lucide="route"></i><span>布线</span></button
+            ><button id="run-repair" class="icon" title="局部修复" aria-label="局部修复" disabled>
+              <i data-lucide="wrench"></i></button
+            ><button id="run-auto-repair" class="icon" title="自动修复" aria-label="自动修复" disabled>
+              <i data-lucide="wand-sparkles"></i></button
+            ><button id="run-completion" class="icon" title="自动完成布局布线" aria-label="自动完成布局布线" disabled>
+              <i data-lucide="workflow"></i></button
+            ><button id="run-verify" title="工程检查">
+              <i data-lucide="shield-check"></i><span>检查</span></button
+            ><button id="run-pipeline" class="primary" title="运行工程流程">
+              <i data-lucide="play"></i><span>运行流程</span>
+            </button>
+          </div>
+        </div>
+        <div class="workspace">
+          <div class="board-workspace">
+            <div id="revision-status" class="revision-status" role="status" hidden></div>
+            <div class="canvas-toolbar">
+              <div id="layers" class="layers"></div>
+              <div class="view-controls">
+                <label title="网络连接关系"
+                  ><input id="ratsnest" type="checkbox" />网络连线</label
+                ><button id="zoom-out" class="icon" title="缩小">
+                  <i data-lucide="minus"></i></button
+                ><button id="zoom-in" class="icon" title="放大">
+                  <i data-lucide="plus"></i></button
+                ><button id="fit" class="icon" title="适合窗口">
+                  <i data-lucide="maximize"></i>
+                </button>
+              </div>
+            </div>
+            <div class="canvas-wrap">
+              <canvas id="board" aria-label="交互式 PCB 板图"></canvas>
+              <div id="empty-board" class="empty-board">
+                <i data-lucide="circuit-board"></i><strong>未选择工程</strong
+                ><button id="empty-import">
+                  <i data-lucide="folder-open"></i>导入 KiCad 工程
+                </button>
+              </div>
+              <div id="selection-tag" hidden></div>
+            </div>
+            <div class="board-status">
+              <span id="board-metrics">无板图数据</span
+              ><span id="cursor">X — · Y —</span
+              ><span id="zoom-level">100%</span>
+            </div>
+          </div>
+          <aside class="inspector">
+            <div class="section-title">
+              <span>设计对象</span
+              ><span id="object-count" class="count">0</span>
+            </div>
+            <div class="object-modes">
+              <button data-object="components" class="active">器件</button
+              ><button data-object="nets">网络</button>
+            </div>
+            <div class="search">
+              <i data-lucide="search"></i
+              ><input
+                id="object-search"
+                placeholder="位号、封装或网络"
+                aria-label="搜索设计对象"
+              />
+            </div>
+            <div id="objects" class="objects"></div>
+            <div id="object-detail" class="object-detail"></div>
+          </aside>
+        </div>
+        <section class="bottom-panel">
+          <div class="tabs">
+            <button class="active" data-tab="jobs">
+              任务队列 <span id="active-jobs" class="count">0</span></button
+            ><button data-tab="plans">布局候选</button
+            ><button data-tab="checks">检查结果</button
+            ><button data-tab="eco">版本比较</button
+            ><button data-tab="releases">制造输出</button
+            ><button data-tab="components">器件台账</button
+            ><button data-tab="nets">网络明细</button
+            ><button data-tab="routing">布线明细</button
+            ><button data-tab="integration">企业集成</button>
+          </div>
+          <div id="panel-content" class="panel-content"></div>
+        </section>
+      </main>
+    </div>
+    <div id="toast" role="status" hidden></div>
+    <dialog id="dialog">
+      <form id="dialog-form">
+        <div class="dialog-title">
+          <h2 id="dialog-title"></h2>
+          <button type="button" id="dialog-close" class="icon" title="关闭">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div id="dialog-body"></div>
+        <div class="dialog-actions">
+          <button type="button" id="dialog-cancel">取消</button
+          ><button type="submit" id="dialog-submit" class="primary">
+            确认
+          </button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

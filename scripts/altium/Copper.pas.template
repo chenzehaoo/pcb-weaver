@@ -1,0 +1,53 @@
+Procedure Run;
+Var
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    It : IPCB_BoardIterator;
+    Track : IPCB_Track;
+    Report : TStringList;
+    N : Integer;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Report.Add('units=altium_internal_coordinates');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(eTrackObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Track := It.FirstPCBObject;
+            N := 0;
+            While Track <> Nil Do
+            Begin
+                Report.Add('[track.' + IntToStr(N) + ']');
+                Report.Add('x1=' + IntToStr(Track.X1));
+                Report.Add('y1=' + IntToStr(Track.Y1));
+                Report.Add('x2=' + IntToStr(Track.X2));
+                Report.Add('y2=' + IntToStr(Track.Y2));
+                Report.Add('width=' + IntToStr(Track.Width));
+                Report.Add('layer=' + IntToStr(Track.Layer));
+                Report.Add('is_keepout=' + BoolToStr(Track.IsKeepout, True));
+                If Track.Net <> Nil Then Report.Add('net=' + Track.Net.Name);
+                N := N + 1;
+                Track := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        Client.CloseDocument(Doc);
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

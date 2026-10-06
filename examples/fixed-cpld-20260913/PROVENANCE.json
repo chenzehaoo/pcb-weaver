@@ -1,0 +1,272 @@
+{
+  "upstream_repository": "https://github.com/KiCad/kicad-source-mirror",
+  "upstream_commit": "286b0611feca00727bf70bfa184ec2c28a745dc3",
+  "upstream_directory": "test_xil_95108",
+  "license": "CC-BY-SA-4.0",
+  "source_board_sha256": "c4a21d593ff072f98dc544d74d9f692ceaf5f3a8dd9dd0984f32c6198492b295",
+  "derived_board_sha256": "6d40591f73ccb88264f04e0a2789977729c64b78fc84adef96813b6a921a0d4b",
+  "derivative_notice": "Unrouted rectangular-envelope PCB Weaver benchmark derivative; not the original mechanical design or manufacturing approved",
+  "changes": {
+    "gr_line": 13,
+    "copper_graphics_to_documentation": 18,
+    "segment": 647,
+    "via": 12,
+    "zone": 1
+  },
+  "schematic_library_aliases": [
+    {
+      "reference": "U1",
+      "before": "Package_DIP:DIP-16_W7.62mm_Socket_LongPads",
+      "after": "footprints:DIP-16_W7.62mm_Socket_LongPads"
+    },
+    {
+      "reference": "C1",
+      "before": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+      "after": "footprints:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+    },
+    {
+      "reference": "C2",
+      "before": "Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal",
+      "after": "footprints:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal"
+    },
+    {
+      "reference": "C3",
+      "before": "Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal",
+      "after": "footprints:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal"
+    },
+    {
+      "reference": "X1",
+      "before": "Crystal:Crystal_HC18-U_Horizontal",
+      "after": "footprints:Crystal_HC18-U_Horizontal"
+    },
+    {
+      "reference": "C4",
+      "before": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+      "after": "footprints:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+    },
+    {
+      "reference": "R1",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "U3",
+      "before": "Package_TO_SOT_THT:TO-220-3_Horizontal_TabDown",
+      "after": "footprints:TO-220-3_Horizontal_TabDown"
+    },
+    {
+      "reference": "P2",
+      "before": "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal",
+      "after": "footprints:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal"
+    },
+    {
+      "reference": "D1",
+      "before": "Diode_THT:D_DO-35_SOD27_P12.70mm_Horizontal",
+      "after": "footprints:D_DO-35_SOD27_P12.70mm_Horizontal"
+    },
+    {
+      "reference": "C6",
+      "before": "Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal",
+      "after": "footprints:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal"
+    },
+    {
+      "reference": "P3",
+      "before": "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",
+      "after": "footprints:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+    },
+    {
+      "reference": "U4",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "footprints:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U4",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "footprints:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U4",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "footprints:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U4",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "footprints:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U4",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "footprints:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U4",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "footprints:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "K1",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+      "after": "footprints:PinHeader_1x03_P2.54mm_Vertical"
+    },
+    {
+      "reference": "J1",
+      "before": "Connector_Dsub:DSUB-25_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.90mm_Housed_MountingHolesOffset11.32mm",
+      "after": "footprints:DSUB-25_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.90mm_Housed_MountingHolesOffset11.32mm"
+    },
+    {
+      "reference": "C12",
+      "before": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+      "after": "footprints:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+    },
+    {
+      "reference": "R3",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "D3",
+      "before": "LED_THT:LED_D5.0mm",
+      "after": "footprints:LED_D5.0mm"
+    },
+    {
+      "reference": "SW1",
+      "before": "Button_Switch_THT:SW_PUSH_6mm_H4.3mm",
+      "after": "footprints:SW_PUSH_6mm_H4.3mm"
+    },
+    {
+      "reference": "SW2",
+      "before": "Button_Switch_THT:SW_PUSH_6mm_H4.3mm",
+      "after": "footprints:SW_PUSH_6mm_H4.3mm"
+    },
+    {
+      "reference": "R4",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "R5",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "P4",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical",
+      "after": "footprints:PinHeader_2x02_P2.54mm_Vertical"
+    },
+    {
+      "reference": "C14",
+      "before": "Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal",
+      "after": "footprints:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal"
+    },
+    {
+      "reference": "R8",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "R9",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "R6",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "R7",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "R10",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "U6",
+      "before": "Package_DIP:DIP-8_W7.62mm_LongPads",
+      "after": "footprints:DIP-8_W7.62mm_LongPads"
+    },
+    {
+      "reference": "C13",
+      "before": "Capacitor_THT:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal",
+      "after": "footprints:CP_Axial_L10.0mm_D4.5mm_P15.00mm_Horizontal"
+    },
+    {
+      "reference": "D4",
+      "before": "Diode_THT:D_DO-35_SOD27_P12.70mm_Horizontal",
+      "after": "footprints:D_DO-35_SOD27_P12.70mm_Horizontal"
+    },
+    {
+      "reference": "J2",
+      "before": "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm",
+      "after": "footprints:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm"
+    },
+    {
+      "reference": "C5",
+      "before": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+      "after": "footprints:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+    },
+    {
+      "reference": "C11",
+      "before": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+      "after": "footprints:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+    },
+    {
+      "reference": "C7",
+      "before": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+      "after": "footprints:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+    },
+    {
+      "reference": "C10",
+      "before": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+      "after": "footprints:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+    },
+    {
+      "reference": "C8",
+      "before": "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+      "after": "footprints:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+    },
+    {
+      "reference": "R2",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "footprints:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    },
+    {
+      "reference": "D2",
+      "before": "LED_THT:LED_D5.0mm",
+      "after": "footprints:LED_D5.0mm"
+    }
+  ],
+  "strengthened_checks": [
+    {
+      "kind": "DRC",
+      "check": "via_diameter",
+      "before": null,
+      "after": "error"
+    }
+  ],
+  "rectangular_test_outline": [
+    94.615,
+    36.195,
+    196.215,
+    135.89
+  ],
+  "preserved": "All physical footprints, pads, nets, values, rotations, sides, schematic wires and local libraries; only same-basename schematic library nicknames synchronized",
+  "components": 42,
+  "nets": 100,
+  "fixed_references": [
+    "P4",
+    "K1",
+    "J1",
+    "J2",
+    "P2",
+    "P3"
+  ],
+  "explicit_connector_body_overhang": [
+    "J1",
+    "J2"
+  ]
+}

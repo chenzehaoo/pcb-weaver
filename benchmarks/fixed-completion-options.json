@@ -1,0 +1,17 @@
+{
+  "placement_mode": "preserve",
+  "candidate_count": 1,
+  "placement_spread_mm": 0.0,
+  "route_passes": 8,
+  "time_budget_seconds": 5400,
+  "routing_policy": "normalize_widths",
+  "repair": {
+    "max_attempts": 24,
+    "time_budget_seconds": 1800,
+    "proposal_timeout_seconds": 180,
+    "max_region_area_mm2": 2500,
+    "allow_neckdown": true,
+    "allow_local_adjustment": true,
+    "allow_multinet": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "board": {
+    "layers": 2,
+    "max_voltage": 5,
+    "edge_clearance_mm": 1.0,
+    "component_gap_mm": 0.5
+  },
+  "fixed_references": ["J1", "J2"],
+  "critical_nets": ["FILTERED"],
+  "proximity": [{"reference": "R1", "target": "C1", "max_distance_mm": 10}],
+  "regions": [{"references": ["R1", "C1"], "bounds": [32, 26, 57, 48]}],
+  "net_rules": [
+    {"nets": ["VIN"], "min_width_mm": 0.4},
+    {"nets": ["FILTERED"], "min_width_mm": 0.3}
+  ],
+  "fabrication": {
+    "min_track_mm": 0.25,
+    "min_clearance_mm": 0.2,
+    "min_via_drill_mm": 0.3
+  },
+  "release": {"require_erc": true}
+}

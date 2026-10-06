@@ -1,0 +1,51 @@
+Procedure Run;
+Var
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    Track : IPCB_Track;
+    Report : TStringList;
+    Ok : Boolean;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Report.Add('purpose=negative_width_control_not_routing_output');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        Track := PCBServer.PCBObjectFactory(eTrackObject, eNoDimension, eCreate_Default);
+        If Track = Nil Then Exit;
+        Track.X1 := MMsToCoord(10);
+        Track.Y1 := MMsToCoord(10);
+        Track.X2 := MMsToCoord(20);
+        Track.Y2 := MMsToCoord(10);
+        Track.Width := MMsToCoord(0.001);
+        Track.Layer := eTopLayer;
+        PCBServer.PreProcess;
+        Try
+            Board.AddPCBObject(Track);
+            PCBServer.SendMessageToRobots(Board.I_ObjectAddress, c_BroadCast,
+                PCBM_BoardRegisteration, Track.I_ObjectAddress);
+        Finally
+            PCBServer.PostProcess;
+        End;
+        Doc.Modified := True;
+        Doc.DoFileSave('PCB Binary');
+        If Doc.Modified Then Exit;
+        Report.Add('injected_width_coord=' + IntToStr(Track.Width));
+        Ok := Board.RunBatchDesignRuleCheck('@@DRC@@', eDRC_HTML, False, False);
+        Report.Add('native_return=' + BoolToStr(Ok, True));
+        If Not FileExists('@@DRC@@') Then Exit;
+        Client.CloseDocument(Doc);
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

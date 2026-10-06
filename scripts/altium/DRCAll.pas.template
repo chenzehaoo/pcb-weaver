@@ -1,0 +1,56 @@
+Procedure Run;
+Var
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    Report : TStringList;
+    Options : IPCB_DesignRuleCheckerOptions;
+    SavedBatch : TRuleSet;
+    EffectiveBatch : TRuleSet;
+    SavedName : String;
+    I : Integer;
+    Ok, Restored : Boolean;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        Options := Board.GetState_DesignRuleCheckerOptions;
+        SavedBatch := Options.RuleSetToCheck;
+        SavedName := Options.ReportFilename;
+        Report.Add('max_violation_count=' + IntToStr(Options.MaxViolationCount));
+        Try
+            Options.RuleSetToCheck := SetDifference(
+                MkSetRange(eRule_Clearance, eRule_ZAxisClearance), MkSet(eRule_None));
+            EffectiveBatch := Options.RuleSetToCheck;
+            For I := 0 To 69 Do
+            Begin
+                Report.Add('batch_before_' + IntToStr(I) + '=' + BoolToStr(InSet(I, SavedBatch), True));
+                Report.Add('batch_effective_' + IntToStr(I) + '=' + BoolToStr(InSet(I, EffectiveBatch), True));
+            End;
+            Ok := Board.RunBatchDesignRuleCheck('@@DRC@@', eDRC_HTML, False, False);
+            Report.Add('native_return=' + BoolToStr(Ok, True));
+        Finally
+            Options.RuleSetToCheck := SavedBatch;
+            Options.ReportFilename := SavedName;
+            Restored := True;
+            For I := 0 To 69 Do
+                If InSet(I, Options.RuleSetToCheck) <> InSet(I, SavedBatch) Then Restored := False;
+            If Options.ReportFilename <> SavedName Then Restored := False;
+            Report.Add('options_restored=' + BoolToStr(Restored, True));
+        End;
+        If Not Restored Then Exit;
+        If Not FileExists('@@DRC@@') Then Exit;
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

@@ -1,0 +1,14 @@
+{
+  "wsl_distro": "Ubuntu",
+  "kicad_cli": "kicad-cli",
+  "kicad_python": "python3",
+  "java": "tools/jre25-linux/bin/java",
+  "freerouting_jar": "tools/freerouting-2.4.1.jar",
+  "timeout_seconds": 300,
+  "route_timeout_seconds": 300,
+  "controlled_neckdown": false,
+  "fanout": false,
+  "router_optimizer_max_passes": 1,
+  "repair_route_scope": true,
+  "router_copper_to_edge_clearance_mm": 0.5
+}

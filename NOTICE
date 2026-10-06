@@ -1,0 +1,6 @@
+PCB Weaver
+Copyright 2026 PCB Weaver contributors
+
+The PCB Weaver application code is licensed under the Apache License, Version 2.0.
+Third-party example circuits, footprints, icons, and external tools retain their own
+licenses and notices. See THIRD_PARTY.md and the notices alongside those files.

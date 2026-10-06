@@ -1,0 +1,6 @@
+{
+  "kicad_cli": "kicad-cli",
+  "java": "java",
+  "freerouting_jar": "tools/freerouting-2.0.1.jar",
+  "timeout_seconds": 180
+}

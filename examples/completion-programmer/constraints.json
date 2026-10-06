@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "board": {
+    "layers": 2,
+    "max_voltage": 24,
+    "edge_clearance_mm": 0.5,
+    "component_gap_mm": 0.25
+  },
+  "fixed_references": [
+    "J1",
+    "JP1"
+  ],
+  "critical_nets": [],
+  "proximity": [],
+  "regions": [],
+  "net_rules": [],
+  "fabrication": {
+    "min_track_mm": 0.25,
+    "min_clearance_mm": 0.2,
+    "min_via_drill_mm": 0.4
+  },
+  "release": {
+    "require_erc": true
+  },
+  "placement": {
+    "algorithm": "block_coordinate",
+    "seed": 1729,
+    "max_iterations": 40,
+    "passes": 2,
+    "block_size": 8
+  }
+}

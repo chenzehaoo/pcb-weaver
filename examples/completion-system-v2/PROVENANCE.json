@@ -1,0 +1,1216 @@
+{
+  "name": "PCB Weaver System Controller Benchmark",
+  "upstream_project": "kit-dev-coldfire-xilinx_5213",
+  "upstream_repository": "https://github.com/KiCad/kicad-source-mirror",
+  "upstream_tag": "9.0.0",
+  "upstream_commit": "286b0611feca00727bf70bfa184ec2c28a745dc3",
+  "upstream_directory": "demos/kit-dev-coldfire-xilinx_5213",
+  "license": "CC-BY-SA-4.0",
+  "license_evidence": "LICENSE.KiCad.README",
+  "copyright": "Original KiCad demo contributors; title/date/revision notices retained",
+  "derivative_notice": "PCB Weaver benchmark derivative. Not an original reference circuit or production-approved board.",
+  "purpose": "Native four-layer ERC/parity and placement/routing regression with a real multi-module circuit",
+  "source_hashes": {
+    "fp-lib-table": "46e27fe89b4f64fbdf8e12cd9d2a493c23d5172fbea27b9a898f47d5d7f7faae",
+    "in_out_conn.kicad_sch": "c1e220d27ecd49c82995c8e78a5c01b91cbcf391f218fb84862579928baf11db",
+    "kit-coldfire_schlib.kicad_sym": "bdcefe458c2ad636731120d29e6a085e93ff4dcd5b5e53efac76ac6b04eb1c77",
+    "kit-dev-coldfire-xilinx_5213.kicad_pcb": "cb4dce7d42bddd86cd9d077e8d508e0885523cc2c0b2d04dd6f87c0b41f9ff26",
+    "kit-dev-coldfire-xilinx_5213.kicad_pro": "bcbea2bd700fa68a5ac5b55e2be92d1dc3c909c15e4762582f8e45f07ce9d486",
+    "kit-dev-coldfire-xilinx_5213.kicad_sch": "54aa9c5fdbcacaa80611183d1ffba4e6db08686a50a49b194f808f2809cabb81",
+    "kit-dev-coldfire-xilinx_5213.kicad_sym": "7f66862d8fe5b787c45d8d371eff9a8ba6c0c74ab4b23a0e71f756510f3781f4",
+    "kit-dev-coldfire.pretty/Altech_AK300_1x02_P5.00mm_45-Degree.kicad_mod": "138ba197a27cd8288a8c30ef0f8d9a12d5a10505cd818512ffa0b22b7fff1945",
+    "kit-dev-coldfire.pretty/C_0805_2012Metric.kicad_mod": "a82babaaf53ca49dcd8a2eea5f0e11d7157b4127aa106c0de6323c06b0bd7a72",
+    "kit-dev-coldfire.pretty/CP_Radial_D8.0mm_P5.00mm.kicad_mod": "6ce87982c150780f877997c0373896a3aec0d386cef319210cc7141907101101",
+    "kit-dev-coldfire.pretty/Crystal_HC18-U_Horizontal.kicad_mod": "04be9b87123c053250bdf2a5d0493aad26a8d074d4cdf7fb918a8d41c1b7df7e",
+    "kit-dev-coldfire.pretty/D_DO-15_P12.70mm_Horizontal.kicad_mod": "3349b5474450ac66e70eaf8d00d90c929bd50c9a43421b135095c00b208b2242",
+    "kit-dev-coldfire.pretty/D_SOT-23_ANK.kicad_mod": "95b98ae228f785f0204079bc62034dc853e7c10bce3cf1fba8e5ed5bf1ca1ae8",
+    "kit-dev-coldfire.pretty/DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm.kicad_mod": "631daa4b4c595154cb0bc7446d0099c468d3da7c1b4a77b589da38ccd5692209",
+    "kit-dev-coldfire.pretty/FSUPCMS.kicad_mod": "33967c9736778cffe6e3dfd025b4dfbe5ae130bd58f154a69b396d3a342bc78d",
+    "kit-dev-coldfire.pretty/JACK_ALIM.kicad_mod": "9fccec18bc535cfbdd13b5295431a6b5334554aa0464e9afbc1f602d7f14d135",
+    "kit-dev-coldfire.pretty/LED_1206_3216Metric.kicad_mod": "e99c5fae2fbc7ef6bf9e3d1dbf41e0ac0cf20cd435b1c77269811e3fb4cdc1a6",
+    "kit-dev-coldfire.pretty/LQFP-100_14x14mm_P0.5mm.kicad_mod": "6c14517b3fe8b08b43f3214b1b0512b6c5c96727256368dc91d52951c186bd1f",
+    "kit-dev-coldfire.pretty/PinHeader_1x01_P2.54mm_Vertical.kicad_mod": "e08483b3bb8a39511d4cedf76fcb2e80f481a15c6b0929a9c2216a449e3dc209",
+    "kit-dev-coldfire.pretty/PinHeader_1x02_P2.54mm_Vertical.kicad_mod": "c356779967af7f1b9a7e2bf2e11ec513c04d0fd282a8dba9cd83d4d455baf2c6",
+    "kit-dev-coldfire.pretty/PinHeader_1x03_P2.54mm_Vertical.kicad_mod": "83c8ac6428e4f44cec5b63c050faae2031550136e94870a58ef57cf7c2e5160e",
+    "kit-dev-coldfire.pretty/PinHeader_1x06_P2.54mm_Vertical.kicad_mod": "c415413dc7af954130de526a7c5366efe8b7559c614b0f47161654e931e6ba44",
+    "kit-dev-coldfire.pretty/PinHeader_2x02_P2.54mm_Vertical.kicad_mod": "1fdf47d59167dbdbdb81378ec48091a6fd3152cdcad27431af5e357f95ea2bd4",
+    "kit-dev-coldfire.pretty/PinHeader_2x03_P2.54mm_Vertical.kicad_mod": "7c5ad14e85bd0ef06624f8c6e64127c786745a8f7ab822ee2028a5ba8832bc37",
+    "kit-dev-coldfire.pretty/PinHeader_2x04_P2.54mm_Vertical.kicad_mod": "27928262789e04fa9edec10a3d8897efa11548afb026920c3b23ae67ed39c06f",
+    "kit-dev-coldfire.pretty/PinHeader_2x13_P2.54mm_Vertical.kicad_mod": "e4824d4a3d9d5f5427667e286a535445438e7a90bf462c8765bdb48fe6942395",
+    "kit-dev-coldfire.pretty/PinHeader_2x20_P2.54mm_Vertical.kicad_mod": "1484fb6c98ee22ba9a3a1c7ce09885ab2721d4e2f87921e670249df4b243376f",
+    "kit-dev-coldfire.pretty/PinHeader_2x30_P2.54mm_Vertical.kicad_mod": "ab7d5600852e2b4fccca468f17bad50fe3630103379055d4cf28f587b660b2e3",
+    "kit-dev-coldfire.pretty/R_0805_2012Metric.kicad_mod": "0e3b16aafae58500d343ef3ee6c4e8c46d232ff113444d7c89b049adb8e0e023",
+    "kit-dev-coldfire.pretty/R_1206_3216Metric_Pad1.30x1.75mm_HandSolder.kicad_mod": "c117375cd98678cd6eac59af655e7030d2bc03ace7fb31dcc256158dc396e06a",
+    "kit-dev-coldfire.pretty/R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal.kicad_mod": "ba3e5af0ec768e1ac9d0921bb3dbb268471e26e3dba5877b6d6c29ef6510456b",
+    "kit-dev-coldfire.pretty/SM1206POL.kicad_mod": "47bce6eeb2e76fab49254cb8a07aa0cd570e4f93ed31297686456183ead88112",
+    "kit-dev-coldfire.pretty/SOIC-14_3.9x8.7mm_P1.27mm.kicad_mod": "f25cba22e88a324dd8590b4f88f77c7176532027bb4e3c07541c8fcc32bf3453",
+    "kit-dev-coldfire.pretty/SOIC-16_3.9x9.9mm_P1.27mm.kicad_mod": "17c9d3aa0b282b5c9bbfcad6f2470d750e0823536d0cb450c5af5d9c50945e96",
+    "kit-dev-coldfire.pretty/SOIC-8_3.9x4.9mm_P1.27mm.kicad_mod": "75fb18f2b651c35cf6c28457b53dc2daaf038a2b24e0ca29b62cb32455643b0a",
+    "kit-dev-coldfire.pretty/SOT23EBC.kicad_mod": "fb1ce02c8bed5a7d5f304f6214480674ea8bfb067fc0682d75495069afa8ddac",
+    "kit-dev-coldfire.pretty/SOT353.kicad_mod": "04b11ea9aba631b4bc9978fc04abbc26ba24c82ba87473d38d1feff5b5d0c5a1",
+    "kit-dev-coldfire.pretty/SW_PUSH_SMALL.kicad_mod": "ea2846b0ba4ba2dcefce8b6f1e8cf205e2dc850839c68c710e376f837d7e1320",
+    "kit-dev-coldfire.pretty/SW_SPDT.kicad_mod": "7f960d8c4086cb989385c62397b75e7095820e000a2d4ead3ccce13755217d29",
+    "kit-dev-coldfire.pretty/TO-263-5_TabPin3.kicad_mod": "2f68dc22cc0ce53d8b7a7f367782d11b64bf20c99f233108c63ad0a1ffc94c09",
+    "kit-dev-coldfire.pretty/TO-92.kicad_mod": "242dc15eb70c814ae57c7bcf9c4e30f9a4c424b0a4d3b2fa43c26e8c60800f2c",
+    "kit-dev-coldfire.pretty/TQFP-144_20x20mm_P0.5mm.kicad_mod": "a058e3a1c289bec1657473da17bccf82152c761f9a35f22ea6ae3a66c8297d18",
+    "prj.3dshapes/Device.switch_toggle_horizontal_right_angle_PC_terminal.wings": "8192f6b143e5192b4019f1eb095b9eb7b7192a74c8a0491c6498468140bc31c4",
+    "prj.3dshapes/Device.switch_toggle_horizontal_right_angle_PC_terminal.wrl": "c059b4eae67cc3ff20f4fdf554ccaad70d75ae944014934c6adb87f95035d0e1",
+    "prj.3dshapes/Jack.wings": "5366c0d6eed71f1632dfd5b5398a92ad4549f35bdb2321d59cc38f261f7ef6b7",
+    "prj.3dshapes/Jack.wrl": "9392b3d048d09bc8ab589fb2982d170d4ab2a08851768c8e22fb311f0d78170a",
+    "prj.3dshapes/push_butt_4pads.wings": "c1fce6cd338e1fd74594d848dcf71ce1fed02de3aa200d903a044b18ec6e4b76",
+    "prj.3dshapes/push_butt_4pads.wrl": "d757f26b74e4d26af5a1c7e5cef179c10b0acd917f58daf73556c48594e23c68",
+    "sym-lib-table": "c42c759795848b39b25895c2ddb43c72b346a7a55d34b909a02974e69359ab10",
+    "xilinx.kicad_sch": "adabebee3a7df4603a5027d69f48cac2c7247183fd7dbed4d33440f28e59b331"
+  },
+  "removed_copper_objects": {
+    "gr_line": 4,
+    "gr_text": 5,
+    "segment": 2935,
+    "via": 253,
+    "zone": 3
+  },
+  "schematic_footprint_id_changes": [
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "MCU_PORT201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x30_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x30_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "VX_EN201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x02_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C201",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "U201",
+      "before": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "after": "kit-dev-coldfire:SOIC-14_3.9x8.7mm_P1.27mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "U201",
+      "before": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "after": "kit-dev-coldfire:SOIC-14_3.9x8.7mm_P1.27mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "U201",
+      "before": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "after": "kit-dev-coldfire:SOIC-14_3.9x8.7mm_P1.27mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "U201",
+      "before": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+      "after": "kit-dev-coldfire:SOIC-14_3.9x8.7mm_P1.27mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R202",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R203",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R204",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R206",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "LED201",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "LED202",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "LED203",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "LED204",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "JP201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x02_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R201",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "U202",
+      "before": "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm",
+      "after": "kit-dev-coldfire:SOIC-16_3.9x9.9mm_P1.27mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "UARTCAN201",
+      "before": "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm",
+      "after": "kit-dev-coldfire:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "UART_EN201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x04_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C204",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C205",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C206",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C203",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C207",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "U203",
+      "before": "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm",
+      "after": "kit-dev-coldfire:SOIC-16_3.9x9.9mm_P1.27mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "UARTCAN202",
+      "before": "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm",
+      "after": "kit-dev-coldfire:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "UART_EN202",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x04_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C209",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C210",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C211",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C208",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C214",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "U204",
+      "before": "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm",
+      "after": "kit-dev-coldfire:SOIC-16_3.9x9.9mm_P1.27mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "UARTCAN203",
+      "before": "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm",
+      "after": "kit-dev-coldfire:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "UART_EN203",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x04_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C217",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C218",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C220",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C216",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C221",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R215",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R208",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R205",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "COM_SEL201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x03_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "COM_SEL202",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x03_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "COM_SEL203",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x03_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "PULUPEN201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x04_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R211",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R212",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R213",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R214",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "CAN_EN201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x02_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C215",
+      "before": "Capacitor_THT:CP_Radial_D8.0mm_P5.00mm",
+      "after": "kit-dev-coldfire:CP_Radial_D8.0mm_P5.00mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R207",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "LED205",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C212",
+      "before": "Capacitor_THT:CP_Radial_D8.0mm_P5.00mm",
+      "after": "kit-dev-coldfire:CP_Radial_D8.0mm_P5.00mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "D201",
+      "before": "Diode_THT:D_DO-15_P12.70mm_Horizontal",
+      "after": "kit-dev-coldfire:D_DO-15_P12.70mm_Horizontal"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C213",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "TB201",
+      "before": "TerminalBlock_Altech:Altech_AK300_1x02_P5.00mm_45-Degree",
+      "after": "kit-dev-coldfire:Altech_AK300_1x02_P5.00mm_45-Degree"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "U205",
+      "before": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+      "after": "kit-dev-coldfire:SOIC-8_3.9x4.9mm_P1.27mm"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C219",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "VREF201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x01_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R210",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "RS201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x01_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "CAN_TERM201",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x02_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "R209",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "RCAN201",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "RCAN202",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "C202",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "in_out_conn.kicad_sch",
+      "reference": "VR201",
+      "before": "Package_TO_SOT_SMD:TO-263-5_TabPin3",
+      "after": "kit-dev-coldfire:TO-263-5_TabPin3"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "U102",
+      "before": "Package_QFP:LQFP-100_14x14mm_P0.5mm",
+      "after": "kit-dev-coldfire:LQFP-100_14x14mm_P0.5mm"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C110",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C111",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C113",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C114",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C115",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C116",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C117",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C118",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "BDM_PORT101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x13_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R111",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C112",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R101",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R102",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R114",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R107",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R108",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R109",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R110",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "CLKOUT101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x01_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R117",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "TA-101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x01_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R118",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R119",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R120",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R121",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R122",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R123",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R124",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R113",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "L101",
+      "before": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+      "after": "kit-dev-coldfire:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C103",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C102",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R112",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C101",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R104",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R105",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C104",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R103",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "LEDABRT101",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "VDDA101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x02_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "L102",
+      "before": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+      "after": "kit-dev-coldfire:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "FB101",
+      "before": "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder",
+      "after": "kit-dev-coldfire:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C109",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "LV101",
+      "before": "Package_TO_SOT_THT:TO-92",
+      "after": "kit-dev-coldfire:TO-92"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C105",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R106",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R115",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R116",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "LED_RST101",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "ALLPST101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x01_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "R125",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C107",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "C106",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "Y101",
+      "before": "Crystal:Crystal_HC18-U_Horizontal",
+      "after": "kit-dev-coldfire:Crystal_HC18-U_Horizontal"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "CT101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x02_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "GND101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x01_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "JP101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x03_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "JP101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x03_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "reference": "JP101",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x03_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "P301",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_1x06_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "R304",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "D302",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C305",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C306",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C307",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C308",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C301",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C302",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C303",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C304",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C309",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C310",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "C311",
+      "before": "Capacitor_SMD:C_0805_2012Metric",
+      "after": "kit-dev-coldfire:C_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "R303",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "D301",
+      "before": "LED_SMD:LED_1206_3216Metric",
+      "after": "kit-dev-coldfire:LED_1206_3216Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "R301",
+      "before": "Resistor_SMD:R_0805_2012Metric",
+      "after": "kit-dev-coldfire:R_0805_2012Metric"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "P302",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x02_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "P303",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical",
+      "after": "kit-dev-coldfire:PinHeader_2x20_P2.54mm_Vertical"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "U301",
+      "before": "Package_QFP:TQFP-144_20x20mm_P0.5mm",
+      "after": "kit-dev-coldfire:TQFP-144_20x20mm_P0.5mm"
+    },
+    {
+      "sheet": "xilinx.kicad_sch",
+      "reference": "R302",
+      "before": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal",
+      "after": "kit-dev-coldfire:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+    }
+  ],
+  "outline_change": {
+    "before": [
+      71.12,
+      55.88,
+      228.6,
+      147.32
+    ],
+    "after": [
+      64,
+      31,
+      234,
+      153
+    ],
+    "reason": "Software optimization envelope: existing off-board connector bodies fit with 5 mm margin; not original mechanical outline"
+  },
+  "explicit_footprint_filter_updates": [
+    {
+      "location": "in_out_conn.kicad_sch",
+      "symbol": "kit-dev-coldfire-xilinx_5213:C",
+      "before": "SM* C? C1-1",
+      "after": "SM* C? C1-1 C_0805_2012Metric"
+    },
+    {
+      "location": "in_out_conn.kicad_sch",
+      "symbol": "kit-dev-coldfire-xilinx_5213:DB9",
+      "before": "DB9*",
+      "after": "DB9* DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm"
+    },
+    {
+      "location": "in_out_conn.kicad_sch",
+      "symbol": "kit-dev-coldfire-xilinx_5213:LED",
+      "before": "LED-3MM LED-5MM LED-10MM LED-0603 LED-0805 LED-1206 LEDV",
+      "after": "LED-3MM LED-5MM LED-10MM LED-0603 LED-0805 LED-1206 LEDV LED_1206_3216Metric"
+    },
+    {
+      "location": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "symbol": "kit-dev-coldfire-xilinx_5213:C",
+      "before": "SM* C? C1-1",
+      "after": "SM* C? C1-1 C_0805_2012Metric"
+    },
+    {
+      "location": "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "symbol": "kit-dev-coldfire-xilinx_5213:LED",
+      "before": "LED-3MM LED-5MM LED-10MM LED-0603 LED-0805 LED-1206 LEDV",
+      "after": "LED-3MM LED-5MM LED-10MM LED-0603 LED-0805 LED-1206 LEDV LED_1206_3216Metric"
+    },
+    {
+      "location": "xilinx.kicad_sch",
+      "symbol": "kit-dev-coldfire-xilinx_5213:C",
+      "before": "SM* C? C1-1",
+      "after": "SM* C? C1-1 C_0805_2012Metric"
+    },
+    {
+      "location": "xilinx.kicad_sch",
+      "symbol": "kit-dev-coldfire-xilinx_5213:LED",
+      "before": "LED-3MM LED-5MM LED-10MM LED-0603 LED-0805 LED-1206 LEDV",
+      "after": "LED-3MM LED-5MM LED-10MM LED-0603 LED-0805 LED-1206 LEDV LED_1206_3216Metric"
+    },
+    {
+      "location": "kit-dev-coldfire-xilinx_5213.kicad_sym",
+      "symbol": "kit-dev-coldfire-xilinx_5213:C",
+      "before": "SM* C? C1-1",
+      "after": "SM* C? C1-1 C_0805_2012Metric"
+    },
+    {
+      "location": "kit-dev-coldfire-xilinx_5213.kicad_sym",
+      "symbol": "kit-dev-coldfire-xilinx_5213:DB9",
+      "before": "DB9*",
+      "after": "DB9* DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm"
+    },
+    {
+      "location": "kit-dev-coldfire-xilinx_5213.kicad_sym",
+      "symbol": "kit-dev-coldfire-xilinx_5213:LED",
+      "before": "LED-3MM LED-5MM LED-10MM LED-0603 LED-0805 LED-1206 LEDV",
+      "after": "LED-3MM LED-5MM LED-10MM LED-0603 LED-0805 LED-1206 LEDV LED_1206_3216Metric"
+    }
+  ],
+  "severity_changes": [
+    {
+      "kind": "DRC",
+      "check": "copper_sliver",
+      "before": "ignore",
+      "after": "warning"
+    },
+    {
+      "kind": "DRC",
+      "check": "extra_footprint",
+      "before": "warning",
+      "after": "error"
+    },
+    {
+      "kind": "DRC",
+      "check": "footprint_filters_mismatch",
+      "before": "ignore",
+      "after": "warning"
+    },
+    {
+      "kind": "DRC",
+      "check": "footprint_symbol_mismatch",
+      "before": "warning",
+      "after": "error"
+    },
+    {
+      "kind": "DRC",
+      "check": "missing_footprint",
+      "before": "warning",
+      "after": "error"
+    },
+    {
+      "kind": "DRC",
+      "check": "net_conflict",
+      "before": "warning",
+      "after": "error"
+    },
+    {
+      "kind": "DRC",
+      "check": "silk_edge_clearance",
+      "before": "ignore",
+      "after": "warning"
+    },
+    {
+      "kind": "ERC",
+      "check": "footprint_link_issues",
+      "before": "ignore",
+      "after": "warning"
+    },
+    {
+      "kind": "ERC",
+      "check": "four_way_junction",
+      "before": "ignore",
+      "after": "warning"
+    },
+    {
+      "kind": "ERC",
+      "check": "multiple_net_names",
+      "before": "ignore",
+      "after": "warning"
+    },
+    {
+      "kind": "ERC",
+      "check": "pin_to_pin",
+      "before": "warning",
+      "after": "error"
+    },
+    {
+      "kind": "ERC",
+      "check": "simulation_model_issue",
+      "before": "ignore",
+      "after": "warning"
+    }
+  ],
+  "preserved": [
+    "all components and values",
+    "all pin types and schematic wires",
+    "all pad/net assignments",
+    "original component positions, rotations and sides",
+    "four-layer stackup",
+    "native local footprints and symbol libraries"
+  ],
+  "metrics": {
+    "path": "kit-dev-coldfire-xilinx_5213.kicad_pcb",
+    "footprints": 160,
+    "pads": 825,
+    "nets": 278,
+    "copper_layers": [
+      "F.Cu",
+      "In1.Cu",
+      "In2.Cu",
+      "B.Cu"
+    ],
+    "packages": {
+      "kit-dev-coldfire:SW_PUSH_SMALL": 4,
+      "kit-dev-coldfire:PinHeader_1x01_P2.54mm_Vertical": 6,
+      "kit-dev-coldfire:PinHeader_2x13_P2.54mm_Vertical": 1,
+      "kit-dev-coldfire:C_0805_2012Metric": 47,
+      "kit-dev-coldfire:SM1206POL": 2,
+      "kit-dev-coldfire:CP_Radial_D8.0mm_P5.00mm": 2,
+      "kit-dev-coldfire:PinHeader_1x02_P2.54mm_Vertical": 5,
+      "kit-dev-coldfire:PinHeader_1x03_P2.54mm_Vertical": 3,
+      "kit-dev-coldfire:D_SOT-23_ANK": 2,
+      "kit-dev-coldfire:D_DO-15_P12.70mm_Horizontal": 1,
+      "kit-dev-coldfire:LED_1206_3216Metric": 9,
+      "kit-dev-coldfire:FSUPCMS": 1,
+      "kit-dev-coldfire:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder": 3,
+      "kit-dev-coldfire:JACK_ALIM": 1,
+      "kit-dev-coldfire:TO-92": 1,
+      "kit-dev-coldfire:PinHeader_2x30_P2.54mm_Vertical": 1,
+      "kit-dev-coldfire:PinHeader_1x06_P2.54mm_Vertical": 1,
+      "kit-dev-coldfire:PinHeader_2x20_P2.54mm_Vertical": 1,
+      "kit-dev-coldfire:PinHeader_2x04_P2.54mm_Vertical": 4,
+      "kit-dev-coldfire:SOT23EBC": 1,
+      "kit-dev-coldfire:R_0805_2012Metric": 45,
+      "kit-dev-coldfire:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal": 1,
+      "kit-dev-coldfire:SW_SPDT": 1,
+      "kit-dev-coldfire:Altech_AK300_1x02_P5.00mm_45-Degree": 1,
+      "kit-dev-coldfire:LQFP-100_14x14mm_P0.5mm": 1,
+      "kit-dev-coldfire:SOT353": 1,
+      "kit-dev-coldfire:SOIC-16_3.9x9.9mm_P1.27mm": 3,
+      "kit-dev-coldfire:SOIC-8_3.9x4.9mm_P1.27mm": 1,
+      "kit-dev-coldfire:TO-263-5_TabPin3": 1,
+      "kit-dev-coldfire:Crystal_HC18-U_Horizontal": 1,
+      "kit-dev-coldfire:TQFP-144_20x20mm_P0.5mm": 1,
+      "kit-dev-coldfire:PinHeader_2x02_P2.54mm_Vertical": 2,
+      "kit-dev-coldfire:SOIC-14_3.9x8.7mm_P1.27mm": 1,
+      "kit-dev-coldfire:PinHeader_2x03_P2.54mm_Vertical": 1,
+      "kit-dev-coldfire:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm": 3
+    },
+    "tracks": 0,
+    "zones": 0,
+    "schematics": [
+      "in_out_conn.kicad_sch",
+      "kit-dev-coldfire-xilinx_5213.kicad_sch",
+      "xilinx.kicad_sch"
+    ]
+  },
+  "limitations": [
+    "14 backside capacitors require mirrored geometry support",
+    "J201 has a native slotted drill requiring directional drill-envelope handling",
+    "TSSOP is not present; the two QFP and SOIC families are genuine",
+    "Global libraries, 3D rendering, firmware, SI/PI, EMC and manufacture are not certified"
+  ],
+  "completion_derivative": {
+    "source_project": "system-clearance-acceptance",
+    "source_revision": "r-1bbf979cb3cc4206",
+    "source_board_sha256": "3f871730ae06e4c6c401555d0be4cb85effb43f7106385bb94387205c14584c5",
+    "input_board_sha256": "74de02d62aaf5d63dbdda61eac70777c923e2d79ced17c4cc269829535c8a1ae",
+    "removed_copper_records": 3596,
+    "notice": "All routing removed, not isolated gaps. Reviewed placement is the seed; this does not test placement from an arbitrary pile of components.",
+    "preserved": "Every component, pad, network, side, rotation, placement, board outline and electrical minimum"
+  }
+}

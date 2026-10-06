@@ -1,0 +1,6 @@
+interface:
+  display_name: "PCB Weaver Engineering"
+  short_description: "Constraint-driven PCB layout and verified manufacturing"
+  default_prompt: "Use $pcb-engineering to inspect my KiCad project and produce a verified PCB revision."
+policy:
+  allow_implicit_invocation: true

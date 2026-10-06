@@ -1,0 +1,112 @@
+Procedure Run;
+Var
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    It : IPCB_BoardIterator;
+    Pad : IPCB_Pad;
+    Poly : IPCB_Polygon;
+    LI;
+    Report : TStringList;
+    N, I, L : Integer;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Report.Add('units=altium_internal_coordinates');
+        Report.Add('scope=electrical_layers_padstack_polygon_definitions_not_all_geometry');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        LI := Board.ElectricalLayerIterator;
+        N := 0;
+        While LI.Next Do
+        Begin
+            Report.Add('[layer.' + IntToStr(N) + ']');
+            Report.Add('id=' + IntToStr(LI.LayerObject.LayerID));
+            N := N + 1;
+        End;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(ePadObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Pad := It.FirstPCBObject;
+            N := 0;
+            While Pad <> Nil Do
+            Begin
+                Report.Add('[pad.' + IntToStr(N) + ']');
+                Report.Add('name=' + Pad.Name);
+                If Pad.Component <> Nil Then Report.Add('component=' + Pad.Component.Name.Text);
+                If Pad.Net <> Nil Then Report.Add('net=' + Pad.Net.Name);
+                Report.Add('x=' + IntToStr(Pad.X));
+                Report.Add('y=' + IntToStr(Pad.Y));
+                Report.Add('rotation=' + FloatToStr(Pad.Rotation));
+                Report.Add('layer=' + IntToStr(Pad.Layer));
+                Report.Add('mode=' + IntToStr(Pad.Mode));
+                Report.Add('hole_type=' + IntToStr(Pad.HoleType));
+                Report.Add('hole_size=' + IntToStr(Pad.HoleSize));
+                Report.Add('hole_width=' + IntToStr(Pad.HoleWidth));
+                Report.Add('hole_rotation=' + FloatToStr(Pad.HoleRotation));
+                Report.Add('plated=' + BoolToStr(Pad.Plated, True));
+                LI := Board.ElectricalLayerIterator;
+                While LI.Next Do
+                Begin
+                    L := LI.LayerObject.LayerID;
+                    Report.Add('x_size_' + IntToStr(L) + '=' + IntToStr(Pad.GetState_XSizeOnLayer(L)));
+                    Report.Add('y_size_' + IntToStr(L) + '=' + IntToStr(Pad.GetState_YSizeOnLayer(L)));
+                    Report.Add('shape_' + IntToStr(L) + '=' + IntToStr(Pad.GetState_ShapeOnLayer(L)));
+                End;
+                N := N + 1;
+                Pad := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(ePolyObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Poly := It.FirstPCBObject;
+            N := 0;
+            While Poly <> Nil Do
+            Begin
+                Report.Add('[polygon.' + IntToStr(N) + ']');
+                Report.Add('layer=' + IntToStr(Poly.Layer));
+                Report.Add('is_keepout=' + BoolToStr(Poly.IsKeepout, True));
+                If Poly.Net <> Nil Then Report.Add('net=' + Poly.Net.Name);
+                Report.Add('point_count=' + IntToStr(Poly.PointCount));
+                For I := 0 To Poly.PointCount - 1 Do
+                Begin
+                    Report.Add('[polygon.' + IntToStr(N) + '.segment.' + IntToStr(I) + ']');
+                    Report.Add('kind=' + IntToStr(Poly.Segments[I].Kind));
+                    Report.Add('vx=' + IntToStr(Poly.Segments[I].vx));
+                    Report.Add('vy=' + IntToStr(Poly.Segments[I].vy));
+                    If Poly.Segments[I].Kind = ePolySegmentArc Then
+                    Begin
+                        Report.Add('cx=' + IntToStr(Poly.Segments[I].cx));
+                        Report.Add('cy=' + IntToStr(Poly.Segments[I].cy));
+                        Report.Add('radius=' + IntToStr(Poly.Segments[I].Radius));
+                        Report.Add('angle1=' + FloatToStr(Poly.Segments[I].Angle1));
+                        Report.Add('angle2=' + FloatToStr(Poly.Segments[I].Angle2));
+                    End;
+                End;
+                N := N + 1;
+                Poly := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        Client.CloseDocument(Doc);
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

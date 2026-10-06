@@ -1,0 +1,123 @@
+Function TrackCount(Board : IPCB_Board) : Integer;
+Var It : IPCB_BoardIterator; Obj : IPCB_Primitive; N : Integer;
+Begin
+    N := 0;
+    It := Board.BoardIterator_Create;
+    Try
+        It.AddFilter_ObjectSet(MkSet(eTrackObject));
+        It.AddFilter_LayerSet(AllLayers);
+        It.AddFilter_Method(eProcessAll);
+        Obj := It.FirstPCBObject;
+        While Obj <> Nil Do
+        Begin
+            N := N + 1;
+            Obj := It.NextPCBObject;
+        End;
+    Finally
+        Board.BoardIterator_Destroy(It);
+    End;
+    Result := N;
+End;
+
+Procedure Run;
+Var
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    Track : IPCB_Track;
+    It : IPCB_BoardIterator;
+    Report : TStringList;
+    BeforeCount : Integer;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[bridge]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('action=@@ACTION@@');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then
+            Exit;
+        Report.Add('board=' + Board.FileName);
+        BeforeCount := TrackCount(Board);
+        Report.Add('before=' + IntToStr(BeforeCount));
+        If '@@ACTION@@' = 'add' Then
+        Begin
+            If BeforeCount <> 0 Then Exit;
+            Track := PCBServer.PCBObjectFactory(eTrackObject, eNoDimension, eCreate_Default);
+            Track.X1 := MMsToCoord(10);
+            Track.Y1 := MMsToCoord(10);
+            Track.X2 := MMsToCoord(20);
+            Track.Y2 := MMsToCoord(10);
+            Track.Width := MMsToCoord(0.25);
+            Track.Layer := eTopLayer;
+            PCBServer.PreProcess;
+            Try
+                Board.AddPCBObject(Track);
+                PCBServer.SendMessageToRobots(Board.I_ObjectAddress, c_BroadCast,
+                    PCBM_BoardRegisteration, Track.I_ObjectAddress);
+            Finally
+                PCBServer.PostProcess;
+            End;
+        End;
+        If '@@ACTION@@' = 'remove' Then
+        Begin
+            If BeforeCount <> 1 Then Exit;
+            It := Board.BoardIterator_Create;
+            Try
+                It.AddFilter_ObjectSet(MkSet(eTrackObject));
+                It.AddFilter_LayerSet(AllLayers);
+                It.AddFilter_Method(eProcessAll);
+                Track := It.FirstPCBObject;
+                If (Track.X1 <> MMsToCoord(10)) Or (Track.Y1 <> MMsToCoord(10)) Or
+                   (Track.X2 <> MMsToCoord(20)) Or (Track.Y2 <> MMsToCoord(10)) Or
+                   (Track.Width <> MMsToCoord(0.25)) Or (Track.Layer <> eTopLayer) Then
+                    Exit;
+                PCBServer.PreProcess;
+                Try
+                    Board.RemovePCBObject(Track);
+                    PCBServer.SendMessageToRobots(Board.I_ObjectAddress, c_BroadCast,
+                        PCBM_BoardRegisteration, Track.I_ObjectAddress);
+                Finally
+                    PCBServer.PostProcess;
+                End;
+            Finally
+                Board.BoardIterator_Destroy(It);
+            End;
+        End;
+        Report.Add('after=' + IntToStr(TrackCount(Board)));
+        If TrackCount(Board) = 1 Then
+        Begin
+            It := Board.BoardIterator_Create;
+            Try
+                It.AddFilter_ObjectSet(MkSet(eTrackObject));
+                It.AddFilter_LayerSet(AllLayers);
+                It.AddFilter_Method(eProcessAll);
+                Track := It.FirstPCBObject;
+                Report.Add('x1=' + IntToStr(Track.X1));
+                Report.Add('y1=' + IntToStr(Track.Y1));
+                Report.Add('x2=' + IntToStr(Track.X2));
+                Report.Add('y2=' + IntToStr(Track.Y2));
+                Report.Add('width=' + IntToStr(Track.Width));
+                Report.Add('layer=' + IntToStr(Track.Layer));
+            Finally
+                Board.BoardIterator_Destroy(It);
+            End;
+        End;
+        If '@@ACTION@@' <> 'inspect' Then
+        Begin
+            Board.ViewManager_FullUpdate;
+            Doc.Modified := True;
+            If Not Doc.DoFileSave('PCB Binary') Then Exit;
+            If Doc.Modified Then Exit;
+        End;
+        Client.CloseDocument(Doc);
+        Report.Add('status=completed');
+    Finally
+        If Report.IndexOf('status=completed') < 0 Then Report.Add('status=incomplete');
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

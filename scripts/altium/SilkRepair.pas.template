@@ -1,0 +1,185 @@
+Procedure Capture(Board : IPCB_Board; Report : TStringList; Prefix : String);
+Var
+    It : IPCB_BoardIterator;
+    C : IPCB_Component;
+    T : IPCB_Track;
+    P : IPCB_Pad;
+    N : Integer;
+Begin
+    It := Board.BoardIterator_Create;
+    Try
+        It.AddFilter_ObjectSet(MkSet(eComponentObject));
+        It.AddFilter_LayerSet(AllLayers);
+        It.AddFilter_Method(eProcessAll);
+        C := It.FirstPCBObject;
+        N := 0;
+        While C <> Nil Do
+        Begin
+            Report.Add('[' + Prefix + '.component.' + IntToStr(N) + ']');
+            Report.Add('name=' + C.Name.Text);
+            Report.Add('pattern=' + C.Pattern);
+            Report.Add('x=' + IntToStr(C.X));
+            Report.Add('y=' + IntToStr(C.Y));
+            Report.Add('layer=' + IntToStr(C.Layer));
+            Report.Add('rotation=' + FloatToStr(C.Rotation));
+            Report.Add('text_x=' + IntToStr(C.Name.XLocation));
+            Report.Add('text_y=' + IntToStr(C.Name.YLocation));
+            Report.Add('text_height=' + IntToStr(C.Name.Size));
+            Report.Add('text_width=' + IntToStr(C.Name.Width));
+            Report.Add('text_rotation=' + FloatToStr(C.Name.Rotation));
+            Report.Add('text_layer=' + IntToStr(C.Name.Layer));
+            Report.Add('text_visible=' + BoolToStr(C.NameOn, True));
+            C := It.NextPCBObject;
+            N := N + 1;
+        End;
+    Finally
+        Board.BoardIterator_Destroy(It);
+    End;
+    It := Board.BoardIterator_Create;
+    Try
+        It.AddFilter_ObjectSet(MkSet(eTrackObject));
+        It.AddFilter_LayerSet(AllLayers);
+        It.AddFilter_Method(eProcessAll);
+        T := It.FirstPCBObject;
+        N := 0;
+        While T <> Nil Do
+        Begin
+            Report.Add('[' + Prefix + '.track.' + IntToStr(N) + ']');
+            Report.Add('x1=' + IntToStr(T.X1));
+            Report.Add('y1=' + IntToStr(T.Y1));
+            Report.Add('x2=' + IntToStr(T.X2));
+            Report.Add('y2=' + IntToStr(T.Y2));
+            Report.Add('width=' + IntToStr(T.Width));
+            Report.Add('layer=' + IntToStr(T.Layer));
+            Report.Add('is_keepout=' + BoolToStr(T.IsKeepout, True));
+            If T.Net <> Nil Then Report.Add('net=' + T.Net.Name);
+            T := It.NextPCBObject;
+            N := N + 1;
+        End;
+    Finally
+        Board.BoardIterator_Destroy(It);
+    End;
+    It := Board.BoardIterator_Create;
+    Try
+        It.AddFilter_ObjectSet(MkSet(ePadObject));
+        It.AddFilter_LayerSet(AllLayers);
+        It.AddFilter_Method(eProcessAll);
+        P := It.FirstPCBObject;
+        N := 0;
+        While P <> Nil Do
+        Begin
+            Report.Add('[' + Prefix + '.pad.' + IntToStr(N) + ']');
+            Report.Add('name=' + P.Name);
+            If P.Component <> Nil Then Report.Add('component=' + P.Component.Name.Text);
+            If P.Net <> Nil Then Report.Add('net=' + P.Net.Name);
+            Report.Add('x=' + IntToStr(P.X));
+            Report.Add('y=' + IntToStr(P.Y));
+            Report.Add('layer=' + IntToStr(P.Layer));
+            Report.Add('rotation=' + FloatToStr(P.Rotation));
+            Report.Add('top_x_size=' + IntToStr(P.TopXSize));
+            Report.Add('top_y_size=' + IntToStr(P.TopYSize));
+            Report.Add('hole_size=' + IntToStr(P.HoleSize));
+            P := It.NextPCBObject;
+            N := N + 1;
+        End;
+    Finally
+        Board.BoardIterator_Destroy(It);
+    End;
+End;
+
+Procedure Run;
+Var
+    WS, Prj, SchDoc, PcbDoc, Flat;
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    It : IPCB_BoardIterator;
+    C, Target : IPCB_Component;
+    Report : TStringList;
+    Matches : Integer;
+    Ok : Boolean;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Report.Add('project=@@PROJECT@@');
+        WS := GetWorkspace;
+        If WS = Nil Then Exit;
+        Prj := WS.DM_OpenProject('@@PROJECT@@', False);
+        If Prj = Nil Then Exit;
+        If UpperCase(Prj.DM_ProjectFullPath) <> UpperCase('@@PROJECT@@') Then Exit;
+        SchDoc := Prj.DM_GetDocumentFromPath('@@SCHEMATIC@@');
+        PcbDoc := Prj.DM_GetDocumentFromPath('@@BOARD@@');
+        If (SchDoc = Nil) Or (PcbDoc = Nil) Then Exit;
+        If Not SchDoc.DM_DocumentIsLoaded Then
+            If Not SchDoc.DM_LoadDocument Then Exit;
+        Prj.DM_SetAsCurrentProject;
+        Ok := Prj.DM_Compile;
+        Report.Add('compile_return=' + BoolToStr(Ok, True));
+        Flat := Prj.DM_DocumentFlattened;
+        If (Not Ok) Or (Flat = Nil) Then Exit;
+        If UpperCase(PcbDoc.DM_Project.DM_ProjectFullPath) <> UpperCase('@@PROJECT@@') Then Exit;
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        Capture(Board, Report, 'before');
+        Target := Nil;
+        Matches := 0;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(eComponentObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            C := It.FirstPCBObject;
+            While C <> Nil Do
+            Begin
+                If C.Name.Text = 'R11' Then
+                Begin
+                    Target := C;
+                    Matches := Matches + 1;
+                End;
+                C := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        If (Matches <> 1) Or (Target = Nil) Then Exit;
+        If Not Target.NameOn Then Exit;
+        PCBServer.PreProcess;
+        Try
+            PCBServer.SendMessageToRobots(Target.Name.I_ObjectAddress, c_Broadcast, PCBM_BeginModify, c_NoEventData);
+            Target.Name.XLocation := MMsToCoord(110.8);
+            Target.Name.YLocation := MMsToCoord(121.0);
+            PCBServer.SendMessageToRobots(Target.Name.I_ObjectAddress, c_Broadcast, PCBM_EndModify, c_NoEventData);
+        Finally
+            PCBServer.PostProcess;
+        End;
+        Doc.Modified := True;
+        Doc.DoFileSave('PCB Binary');
+        If Doc.Modified Then Exit;
+        Client.CloseDocument(Doc);
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        Capture(Board, Report, 'after');
+        ResetParameters;
+        RunProcess('PCB:DesignRuleCheck');
+        ResetParameters;
+        Ok := Board.RunBatchDesignRuleCheck('@@DRC@@', eDRC_HTML, False, False);
+        Report.Add('[drc]');
+        Report.Add('native_return=' + BoolToStr(Ok, True));
+        If Not FileExists('@@DRC@@') Then Exit;
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

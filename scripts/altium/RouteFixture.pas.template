@@ -1,0 +1,120 @@
+Procedure AddPad(Comp : IPCB_Component; AName : String; AX, AY : TCoord; ANet : IPCB_Net);
+Var Pad : IPCB_Pad;
+Begin
+    Pad := PCBServer.PCBObjectFactory(ePadObject, eNoDimension, eCreate_Default);
+    Pad.Name := AName;
+    Pad.X := AX;
+    Pad.Y := AY;
+    Pad.Layer := eTopLayer;
+    Pad.TopXSize := MilsToCoord(60);
+    Pad.TopYSize := MilsToCoord(60);
+    Pad.HoleSize := 0;
+    Pad.Net := ANet;
+    Comp.AddPCBObject(Pad);
+End;
+
+Procedure Run;
+Var
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    It : IPCB_BoardIterator;
+    P : IPCB_Primitive;
+    NetA, NetB : IPCB_Net;
+    Comp : IPCB_Component;
+    R : TCoordRect;
+    X0, Y0 : TCoord;
+    N, K : Integer;
+    Report : TStringList;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        For K := 0 To 3 Do
+        Begin
+            It := Board.BoardIterator_Create;
+            Try
+                If K = 0 Then It.AddFilter_ObjectSet(MkSet(eComponentObject));
+                If K = 1 Then It.AddFilter_ObjectSet(MkSet(ePadObject));
+                If K = 2 Then It.AddFilter_ObjectSet(MkSet(eTrackObject));
+                If K = 3 Then It.AddFilter_ObjectSet(MkSet(eNetObject));
+                It.AddFilter_LayerSet(AllLayers);
+                It.AddFilter_Method(eProcessAll);
+                N := 0;
+                P := It.FirstPCBObject;
+                While P <> Nil Do
+                Begin
+                    N := N + 1;
+                    P := It.NextPCBObject;
+                End;
+            Finally
+                Board.BoardIterator_Destroy(It);
+            End;
+            If N <> 0 Then Exit;
+        End;
+        Board.BoardOutline.Invalidate;
+        Board.BoardOutline.Rebuild;
+        Board.BoardOutline.Validate;
+        R := Board.BoardOutline.BoundingRectangle;
+        If (R.Right - R.Left < MilsToCoord(1200)) Or
+           (R.Top - R.Bottom < MilsToCoord(700)) Then Exit;
+        X0 := R.Left + MilsToCoord(300);
+        Y0 := R.Bottom + MilsToCoord(300);
+        Report.Add('[outline]');
+        Report.Add('left=' + IntToStr(R.Left));
+        Report.Add('right=' + IntToStr(R.Right));
+        Report.Add('bottom=' + IntToStr(R.Bottom));
+        Report.Add('top=' + IntToStr(R.Top));
+        PCBServer.PreProcess;
+        Try
+            NetA := PCBServer.PCBObjectFactory(eNetObject, eNoDimension, eCreate_Default);
+            NetA.Name := 'SIG_A';
+            Board.AddPCBObject(NetA);
+            NetB := PCBServer.PCBObjectFactory(eNetObject, eNoDimension, eCreate_Default);
+            NetB.Name := 'SIG_B';
+            Board.AddPCBObject(NetB);
+            Comp := PCBServer.PCBObjectFactory(eComponentObject, eNoDimension, eCreate_Default);
+            Comp.X := X0;
+            Comp.Y := Y0;
+            Comp.Layer := eTopLayer;
+            Comp.Name.Text := 'J1';
+            Comp.Comment.Text := 'INPUT';
+            Comp.NameOn := False;
+            Comp.CommentOn := False;
+            Comp.Pattern := 'ROUTE_DEMO_2PIN';
+            AddPad(Comp, '1', X0, Y0, NetA);
+            AddPad(Comp, '2', X0, Y0 + MilsToCoord(150), NetB);
+            Board.AddPCBObject(Comp);
+            Comp := PCBServer.PCBObjectFactory(eComponentObject, eNoDimension, eCreate_Default);
+            Comp.X := X0 + MilsToCoord(600);
+            Comp.Y := Y0;
+            Comp.Layer := eTopLayer;
+            Comp.Name.Text := 'J2';
+            Comp.Comment.Text := 'OUTPUT';
+            Comp.NameOn := False;
+            Comp.CommentOn := False;
+            Comp.Pattern := 'ROUTE_DEMO_2PIN';
+            AddPad(Comp, '1', X0 + MilsToCoord(600), Y0, NetA);
+            AddPad(Comp, '2', X0 + MilsToCoord(600), Y0 + MilsToCoord(150), NetB);
+            Board.AddPCBObject(Comp);
+        Finally
+            PCBServer.PostProcess;
+        End;
+        Doc.Modified := True;
+        Doc.DoFileSave('PCB Binary');
+        If Doc.Modified Then Exit;
+        Client.CloseDocument(Doc);
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

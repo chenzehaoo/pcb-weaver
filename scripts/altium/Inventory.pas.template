@@ -1,0 +1,120 @@
+Procedure Run;
+Var
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    It : IPCB_BoardIterator;
+    Component : IPCB_Component;
+    Pad : IPCB_Pad;
+    Net : IPCB_Net;
+    Rule : IPCB_Rule;
+    Report : TStringList;
+    N : Integer;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Report.Add('units=altium_internal_coordinates');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(eComponentObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Component := It.FirstPCBObject;
+            N := 0;
+            While Component <> Nil Do
+            Begin
+                Report.Add('[component.' + IntToStr(N) + ']');
+                Report.Add('designator=' + Component.Name.Text);
+                Report.Add('comment=' + Component.Comment.Text);
+                Report.Add('pattern=' + Component.Pattern);
+                Report.Add('x=' + IntToStr(Component.X));
+                Report.Add('y=' + IntToStr(Component.Y));
+                Report.Add('rotation=' + FloatToStr(Component.Rotation));
+                Report.Add('layer=' + IntToStr(Component.Layer));
+                N := N + 1;
+                Component := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(eNetObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Net := It.FirstPCBObject;
+            N := 0;
+            While Net <> Nil Do
+            Begin
+                Report.Add('[net.' + IntToStr(N) + ']');
+                Report.Add('name=' + Net.Name);
+                N := N + 1;
+                Net := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(ePadObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Pad := It.FirstPCBObject;
+            N := 0;
+            While Pad <> Nil Do
+            Begin
+                Report.Add('[pad.' + IntToStr(N) + ']');
+                Report.Add('name=' + Pad.Name);
+                If Pad.Component <> Nil Then Report.Add('component=' + Pad.Component.Name.Text);
+                If Pad.Net <> Nil Then Report.Add('net=' + Pad.Net.Name);
+                Report.Add('x=' + IntToStr(Pad.X));
+                Report.Add('y=' + IntToStr(Pad.Y));
+                Report.Add('rotation=' + FloatToStr(Pad.Rotation));
+                Report.Add('layer=' + IntToStr(Pad.Layer));
+                Report.Add('top_x_size=' + IntToStr(Pad.TopXSize));
+                Report.Add('top_y_size=' + IntToStr(Pad.TopYSize));
+                Report.Add('hole_size=' + IntToStr(Pad.HoleSize));
+                N := N + 1;
+                Pad := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(eRuleObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Rule := It.FirstPCBObject;
+            N := 0;
+            While Rule <> Nil Do
+            Begin
+                Report.Add('[rule.' + IntToStr(N) + ']');
+                Report.Add('name=' + Rule.Name);
+                Report.Add('kind=' + IntToStr(Rule.RuleKind));
+                Report.Add('scope1=' + Rule.Scope1Expression);
+                Report.Add('scope2=' + Rule.Scope2Expression);
+                Report.Add('drc_enabled=' + BoolToStr(Rule.DRCEnabled, True));
+                Report.Add('priority=' + IntToStr(Rule.Priority));
+                N := N + 1;
+                Rule := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        Client.CloseDocument(Doc);
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

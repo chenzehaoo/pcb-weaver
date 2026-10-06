@@ -1,0 +1,28 @@
+Procedure Run;
+Var Board : IPCB_Board; Doc : IServerDocument; Report : TStringList;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        ResetParameters;
+        AddStringParameter('FileName', '@@OUTPUT@@');
+        AddStringParameter('Silent', 'True');
+        RunProcess('RouteCCT:ExportDesignFile');
+        ResetParameters;
+        If Not FileExists('@@OUTPUT@@') Then Exit;
+        Client.CloseDocument(Doc);
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

@@ -1,0 +1,109 @@
+Procedure Run;
+Var
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    It : IPCB_BoardIterator;
+    Track, Target : IPCB_Track;
+    Report : TStringList;
+    N, Matches : Integer;
+    Ok : Boolean;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('board=@@BOARD@@');
+        Report.Add('repair=extend_exact_gnd_track_into_c12_at_native_minimum_width');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        It := Board.BoardIterator_Create;
+        Target := Nil;
+        Matches := 0;
+        N := 0;
+        Try
+            It.AddFilter_ObjectSet(MkSet(eTrackObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Track := It.FirstPCBObject;
+            While Track <> Nil Do
+            Begin
+                N := N + 1;
+                If (Track.X1 = 44514567) And (Track.Y1 = 41879922) And
+                   (Track.X2 = 44514567) And (Track.Y2 = 41966711) And
+                   (Track.Width = 100000) And (Track.Layer = eBottomLayer) And
+                   (Not Track.IsKeepout) Then
+                Begin
+                    If Track.Net <> Nil Then
+                        If Track.Net.Name = 'GND' Then
+                        Begin
+                            Target := Track;
+                            Matches := Matches + 1;
+                        End;
+                End;
+                Track := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        Report.Add('before_tracks=' + IntToStr(N));
+        Report.Add('exact_matches=' + IntToStr(Matches));
+        If (N <> 579) Or (Matches <> 1) Or (Target = Nil) Then Exit;
+        PCBServer.PreProcess;
+        Try
+            Target.Y1 := 41850394;
+            Target.Width := 98425;
+        Finally
+            PCBServer.PostProcess;
+        End;
+        Doc.Modified := True;
+        Doc.DoFileSave('PCB Binary');
+        If Doc.Modified Then Exit;
+        Client.CloseDocument(Doc);
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        It := Board.BoardIterator_Create;
+        Try
+            It.AddFilter_ObjectSet(MkSet(eTrackObject));
+            It.AddFilter_LayerSet(AllLayers);
+            It.AddFilter_Method(eProcessAll);
+            Track := It.FirstPCBObject;
+            N := 0;
+            While Track <> Nil Do
+            Begin
+                Report.Add('[track.' + IntToStr(N) + ']');
+                Report.Add('x1=' + IntToStr(Track.X1));
+                Report.Add('y1=' + IntToStr(Track.Y1));
+                Report.Add('x2=' + IntToStr(Track.X2));
+                Report.Add('y2=' + IntToStr(Track.Y2));
+                Report.Add('width=' + IntToStr(Track.Width));
+                Report.Add('layer=' + IntToStr(Track.Layer));
+                Report.Add('is_keepout=' + BoolToStr(Track.IsKeepout, True));
+                If Track.Net <> Nil Then Report.Add('net=' + Track.Net.Name);
+                N := N + 1;
+                Track := It.NextPCBObject;
+            End;
+        Finally
+            Board.BoardIterator_Destroy(It);
+        End;
+        If N <> 579 Then Exit;
+        ResetParameters;
+        RunProcess('PCB:DesignRuleCheck');
+        ResetParameters;
+        Ok := Board.RunBatchDesignRuleCheck('@@DRC@@', eDRC_HTML, False, False);
+        Report.Add('[drc]');
+        Report.Add('native_return=' + BoolToStr(Ok, True));
+        If Not FileExists('@@DRC@@') Then Exit;
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

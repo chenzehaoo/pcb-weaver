@@ -1,0 +1,12 @@
+{
+  "source_repository": "https://github.com/KiCad/kicad-source-mirror",
+  "source_commit": "286b0611feca00727bf70bfa184ec2c28a745dc3",
+  "method": "Parsed only the listed PCB files and inspected selected schematic/library/license files; not a full source-repository review.",
+  "candidates": [
+    {"demo": "interf_u", "footprints": 25, "pads": 379, "nets": 173, "layers": 2, "decision": "Below requested component/layer thresholds"},
+    {"demo": "kit-dev-coldfire-xilinx_5213", "footprints": 160, "pads": 825, "nets": 278, "layers": 4, "decision": "Selected: real MCU/CPLD/CAN/RS232/power board, local libraries"},
+    {"demo": "video", "footprints": 189, "pads": 2118, "nets": 588, "layers": 4, "decision": "Larger video/PCI design; less focused on controller use case"},
+    {"demo": "vme-wren", "footprints": 1508, "pads": 6883, "nets": 1800, "layers": 12, "decision": "Beyond initial four-layer system benchmark scope"},
+    {"demo": "royalblue54L_feather/RoyalBlue54L-Feather", "parse_error": "ExpectNothing", "decision": "9.0.0 candidate file rejected by parser; not repaired or represented as validated"}
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "board": {"layers": 4, "max_voltage": 24, "edge_clearance_mm": 0.5, "component_gap_mm": 0.25},
+  "fixed_references": [
+    "ALLPST101", "BDM_PORT101", "CAN_EN201", "CAN_TERM201", "CLKOUT101", "CT101", "GND101",
+    "J201", "JP101", "JP201", "MCU_PORT201", "P301", "P302", "P303", "PULUPEN201", "TA-101",
+    "TB201", "UARTCAN201", "UARTCAN202", "UARTCAN203", "UART_EN201", "UART_EN202", "UART_EN203",
+    "VDDA101", "VREF201", "VX_EN201"
+  ],
+  "critical_nets": [],
+  "proximity": [{"reference":"Y101","target":"U102","max_distance_mm":25}],
+  "regions": [],
+  "net_rules": [],
+  "fabrication": {"min_track_mm":0.2,"min_clearance_mm":0.15,"min_via_drill_mm":0.4},
+  "release": {"require_erc":true},
+  "placement": {"algorithm":"legalize","seed":1729,"max_iterations":80,"passes":4,"block_size":8}
+}

@@ -1,0 +1,11 @@
+{
+  "wsl_distro": "Ubuntu",
+  "kicad_cli": "kicad-cli",
+  "kicad_python": "python3",
+  "java": "java",
+  "freerouting_jar": "tools/freerouting-1.9.0.jar",
+  "timeout_seconds": 300,
+  "route_timeout_seconds": 1800,
+  "controlled_neckdown": true,
+  "fanout": false
+}

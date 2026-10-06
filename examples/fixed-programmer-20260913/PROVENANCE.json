@@ -1,0 +1,190 @@
+{
+  "upstream_repository": "https://github.com/KiCad/kicad-source-mirror",
+  "upstream_commit": "286b0611feca00727bf70bfa184ec2c28a745dc3",
+  "upstream_directory": "flat_hierarchy",
+  "license": "CC-BY-SA-4.0",
+  "source_board_sha256": "1cba9487a4c8c7a827020e98322d990f453acc663b8ed427bd5ea057093079b9",
+  "derived_board_sha256": "bcba7fa321f73fec749d3648519b082e732f4ba2389d2654dcf9cad1c20c1d56",
+  "derivative_notice": "Unrouted rectangular-envelope PCB Weaver benchmark derivative; not the original mechanical design or manufacturing approved",
+  "changes": {
+    "gr_line": 5,
+    "copper_graphics_to_documentation": 19,
+    "segment": 371,
+    "via": 7,
+    "zone": 177
+  },
+  "schematic_library_aliases": [
+    {
+      "reference": "J1",
+      "before": "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm",
+      "after": "pic_programmer_fp:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset7.70mm_Housed_MountingHolesOffset9.12mm"
+    },
+    {
+      "reference": "U2",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "pic_programmer_fp:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U2",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "pic_programmer_fp:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U2",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "pic_programmer_fp:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U2",
+      "before": "Package_DIP:DIP-14_W7.62mm_LongPads",
+      "after": "pic_programmer_fp:DIP-14_W7.62mm_LongPads"
+    },
+    {
+      "reference": "D8",
+      "before": "LED_THT:LED_D5.0mm",
+      "after": "pic_programmer_fp:LED_D5.0mm"
+    },
+    {
+      "reference": "P1",
+      "before": "TerminalBlock_Altech:Altech_AK300_1x02_P5.00mm_45-Degree",
+      "after": "pic_programmer_fp:Altech_AK300_1x02_P5.00mm_45-Degree"
+    },
+    {
+      "reference": "D1",
+      "before": "Diode_THT:D_DO-35_SOD27_P12.70mm_Horizontal",
+      "after": "pic_programmer_fp:D_DO-35_SOD27_P12.70mm_Horizontal"
+    },
+    {
+      "reference": "C2",
+      "before": "Capacitor_THT:CP_Axial_L18.0mm_D6.5mm_P25.00mm_Horizontal",
+      "after": "pic_programmer_fp:CP_Axial_L18.0mm_D6.5mm_P25.00mm_Horizontal"
+    },
+    {
+      "reference": "C1",
+      "before": "Capacitor_THT:CP_Axial_L18.0mm_D6.5mm_P25.00mm_Horizontal",
+      "after": "pic_programmer_fp:CP_Axial_L18.0mm_D6.5mm_P25.00mm_Horizontal"
+    },
+    {
+      "reference": "D9",
+      "before": "LED_THT:LED_D5.0mm",
+      "after": "pic_programmer_fp:LED_D5.0mm"
+    },
+    {
+      "reference": "C3",
+      "before": "Capacitor_THT:CP_Axial_L11.0mm_D6.0mm_P18.00mm_Horizontal",
+      "after": "pic_programmer_fp:CP_Axial_L11.0mm_D6.0mm_P18.00mm_Horizontal"
+    },
+    {
+      "reference": "C5",
+      "before": "Capacitor_THT:C_Disc_D5.1mm_W3.2mm_P5.00mm",
+      "after": "pic_programmer_fp:C_Disc_D5.1mm_W3.2mm_P5.00mm"
+    },
+    {
+      "reference": "U4",
+      "before": "Package_DIP:DIP-8_W7.62mm_LongPads",
+      "after": "pic_programmer_fp:DIP-8_W7.62mm_LongPads"
+    },
+    {
+      "reference": "C4",
+      "before": "Capacitor_THT:C_Disc_D5.1mm_W3.2mm_P5.00mm",
+      "after": "pic_programmer_fp:C_Disc_D5.1mm_W3.2mm_P5.00mm"
+    },
+    {
+      "reference": "D10",
+      "before": "Diode_THT:D_DO-35_SOD27_P12.70mm_Horizontal",
+      "after": "pic_programmer_fp:D_DO-35_SOD27_P12.70mm_Horizontal"
+    },
+    {
+      "reference": "D12",
+      "before": "LED_THT:LED_D5.0mm",
+      "after": "pic_programmer_fp:LED_D5.0mm"
+    },
+    {
+      "reference": "JP1",
+      "before": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+      "after": "pic_programmer_fp:PinHeader_1x02_P2.54mm_Vertical"
+    },
+    {
+      "reference": "C9",
+      "before": "Capacitor_THT:C_Disc_D5.1mm_W3.2mm_P5.00mm",
+      "after": "pic_programmer_fp:C_Disc_D5.1mm_W3.2mm_P5.00mm"
+    },
+    {
+      "reference": "U6",
+      "before": "Package_DIP:DIP-8_W7.62mm_LongPads",
+      "after": "pic_programmer_fp:DIP-8_W7.62mm_LongPads"
+    },
+    {
+      "reference": "U5",
+      "before": "Package_DIP:DIP-18_W7.62mm_Socket_LongPads",
+      "after": "pic_programmer_fp:DIP-18_W7.62mm_Socket_LongPads"
+    },
+    {
+      "reference": "U1",
+      "before": "Package_DIP:DIP-8_W7.62mm_LongPads",
+      "after": "pic_programmer_fp:DIP-8_W7.62mm_LongPads"
+    },
+    {
+      "reference": "P3",
+      "before": "Package_DIP:DIP-40_W15.24mm_Socket_LongPads",
+      "after": "pic_programmer_fp:DIP-40_W15.24mm_Socket_LongPads"
+    },
+    {
+      "reference": "C6",
+      "before": "Capacitor_THT:C_Disc_D5.1mm_W3.2mm_P5.00mm",
+      "after": "pic_programmer_fp:C_Disc_D5.1mm_W3.2mm_P5.00mm"
+    },
+    {
+      "reference": "C7",
+      "before": "Capacitor_THT:C_Disc_D5.1mm_W3.2mm_P5.00mm",
+      "after": "pic_programmer_fp:C_Disc_D5.1mm_W3.2mm_P5.00mm"
+    },
+    {
+      "reference": "P2",
+      "before": "Package_DIP:DIP-28_W7.62mm_Socket_LongPads",
+      "after": "pic_programmer_fp:DIP-28_W7.62mm_Socket_LongPads"
+    },
+    {
+      "reference": "C8",
+      "before": "Capacitor_THT:C_Disc_D5.1mm_W3.2mm_P5.00mm",
+      "after": "pic_programmer_fp:C_Disc_D5.1mm_W3.2mm_P5.00mm"
+    }
+  ],
+  "strengthened_checks": [
+    {
+      "kind": "ERC",
+      "check": "pin_to_pin",
+      "before": "warning",
+      "after": "error"
+    },
+    {
+      "kind": "DRC",
+      "check": "via_diameter",
+      "before": null,
+      "after": "error"
+    }
+  ],
+  "rectangular_test_outline": [
+    73.66,
+    40.64,
+    233.68,
+    139.7
+  ],
+  "preserved": "All physical footprints, pads, nets, values, rotations, sides, schematic wires and local libraries; only same-basename schematic library nicknames synchronized",
+  "components": 64,
+  "nets": 111,
+  "fixed_references": [
+    "J1",
+    "JP1"
+  ],
+  "explicit_body_overhang": [
+    "HOLE1",
+    "HOLE6",
+    "HOLE3",
+    "HOLE4",
+    "HOLE5",
+    "HOLE2",
+    "J1"
+  ],
+  "body_overhang_scope": "Connector body and, only with explicit flag, mounting-head courtyard; physical pads/holes remain contained. No mechanical signoff."
+}

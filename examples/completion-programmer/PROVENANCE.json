@@ -1,0 +1,29 @@
+{
+  "upstream_repository": "https://github.com/KiCad/kicad-source-mirror",
+  "upstream_commit": "286b0611feca00727bf70bfa184ec2c28a745dc3",
+  "upstream_directory": "flat_hierarchy",
+  "license": "CC-BY-SA-4.0",
+  "source_board_sha256": "1cba9487a4c8c7a827020e98322d990f453acc663b8ed427bd5ea057093079b9",
+  "derived_board_sha256": "509292da783ce6016e3fe317ec40d03acf9c764838fc1e48bb256144a2a2c15b",
+  "derivative_notice": "Unrouted rectangular-envelope PCB Weaver benchmark derivative; not the original mechanical design or manufacturing approved",
+  "changes": {
+    "gr_line": 5,
+    "copper_graphics_to_documentation": 19,
+    "segment": 371,
+    "via": 7,
+    "zone": 177
+  },
+  "rectangular_test_outline": [
+    73.66,
+    40.64,
+    233.68,
+    139.7
+  ],
+  "preserved": "All footprints, pads, nets, values, rotations, sides, source schematic and local libraries",
+  "components": 64,
+  "nets": 111,
+  "fixed_references": [
+    "J1",
+    "JP1"
+  ]
+}

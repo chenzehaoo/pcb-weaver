@@ -1,0 +1,48 @@
+Procedure Run;
+Var
+    WS, Prj, SchDoc, PcbDoc, Flat;
+    Board : IPCB_Board;
+    Doc : IServerDocument;
+    Report : TStringList;
+    Ok : Boolean;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[job]');
+        Report.Add('request=@@REQUEST@@');
+        Report.Add('project=@@PROJECT@@');
+        Report.Add('board=@@BOARD@@');
+        WS := GetWorkspace;
+        If WS = Nil Then Exit;
+        Prj := WS.DM_OpenProject('@@PROJECT@@', False);
+        If Prj = Nil Then Exit;
+        If UpperCase(Prj.DM_ProjectFullPath) <> UpperCase('@@PROJECT@@') Then Exit;
+        SchDoc := Prj.DM_GetDocumentFromPath('@@SCHEMATIC@@');
+        PcbDoc := Prj.DM_GetDocumentFromPath('@@BOARD@@');
+        If (SchDoc = Nil) Or (PcbDoc = Nil) Then Exit;
+        If Not SchDoc.DM_DocumentIsLoaded Then
+            If Not SchDoc.DM_LoadDocument Then Exit;
+        Prj.DM_SetAsCurrentProject;
+        Ok := Prj.DM_Compile;
+        Report.Add('compile_return=' + BoolToStr(Ok, True));
+        Report.Add('schematic=' + SchDoc.DM_FullPath);
+        Report.Add('pcb_project=' + PcbDoc.DM_Project.DM_ProjectFullPath);
+        Flat := Prj.DM_DocumentFlattened;
+        Report.Add('flattened_available=' + BoolToStr(Flat <> Nil, True));
+        If Not Ok Then Exit;
+        If Flat = Nil Then Exit;
+        If UpperCase(PcbDoc.DM_Project.DM_ProjectFullPath) <> UpperCase('@@PROJECT@@') Then Exit;
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        @@DRC_BLOCK@@
+        Report.Add('[completion]');
+        Report.Add('status=completed');
+    Finally
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;

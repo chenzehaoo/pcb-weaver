@@ -1,0 +1,19 @@
+{
+  "name": "pcb-weaver",
+  "version": "0.4.0",
+  "description": "Multilayer PCB engineering workbench, durable layout/routing jobs and revision-bound manufacturing evidence",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "PCB Weaver",
+    "shortDescription": "PCB engineering workflows with verifiable artifacts",
+    "longDescription": "Import KiCad projects, compare constrained layouts, run a local autorouter, analyze ECO revisions and export checked manufacturing artifacts.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": ["Use PCB Weaver to inspect and optimize my KiCad board."]
+  },
+  "mcpServers": "./.mcp.json"
+}

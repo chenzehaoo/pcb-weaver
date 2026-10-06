@@ -1,0 +1,51 @@
+Function CountObjects(Board : IPCB_Board; Kind : TObjectId) : Integer;
+Var It : IPCB_BoardIterator; Obj : IPCB_Primitive; N : Integer;
+Begin
+    N := 0;
+    It := Board.BoardIterator_Create;
+    Try
+        It.AddFilter_ObjectSet(MkSet(Kind));
+        It.AddFilter_LayerSet(AllLayers);
+        It.AddFilter_Method(eProcessAll);
+        Obj := It.FirstPCBObject;
+        While Obj <> Nil Do
+        Begin
+            N := N + 1;
+            Obj := It.NextPCBObject;
+        End;
+    Finally
+        Board.BoardIterator_Destroy(It);
+    End;
+    Result := N;
+End;
+
+Procedure Run;
+Var Board : IPCB_Board; Doc : IServerDocument; Report : TStringList;
+Begin
+    Report := TStringList.Create;
+    Try
+        Report.Add('[survey]');
+        Report.Add('request=@@REQUEST@@');
+        Doc := Client.OpenDocument('PCB', '@@BOARD@@');
+        If Doc = Nil Then Exit;
+        Client.ShowDocument(Doc);
+        Board := PCBServer.GetCurrentPCBBoard;
+        If Board = Nil Then Exit;
+        If UpperCase(Board.FileName) <> UpperCase('@@BOARD@@') Then Exit;
+        Report.Add('board=' + Board.FileName);
+        Report.Add('components=' + IntToStr(CountObjects(Board, eComponentObject)));
+        Report.Add('pads=' + IntToStr(CountObjects(Board, ePadObject)));
+        Report.Add('nets=' + IntToStr(CountObjects(Board, eNetObject)));
+        Report.Add('tracks=' + IntToStr(CountObjects(Board, eTrackObject)));
+        Report.Add('vias=' + IntToStr(CountObjects(Board, eViaObject)));
+        Report.Add('polygons=' + IntToStr(CountObjects(Board, ePolyObject)));
+        Report.Add('arcs=' + IntToStr(CountObjects(Board, eArcObject)));
+        Report.Add('rules=' + IntToStr(CountObjects(Board, eRuleObject)));
+        Client.CloseDocument(Doc);
+        Report.Add('status=completed');
+    Finally
+        If Report.IndexOf('status=completed') < 0 Then Report.Add('status=incomplete');
+        Report.SaveToFile('@@REPORT@@');
+        Report.Free;
+    End;
+End;
