@@ -1,114 +1,61 @@
-# PCB Weaver 技术架构
+# 技术架构
+
+[返回首页](../README.md) · [Altium 内测](ALTIUM-SERVICE-BETA.zh-CN.md) · [本机集成接口](INTEGRATION.zh-CN.md)
 
 > [!NOTE]
-> 这份文档描述当前源码的组件关系和工程门禁。KiCad 主链路与 Altium 开发者内测服务拥有不同入口、队列和数据目录；下图中的虚线表示可选能力，不表示两套系统已打通。
+> KiCad 与 Altium 是两条独立的本机链路。它们不共享任务库，也没有统一的自动布线引擎。
 
-[返回首页](../README.md) · [Altium 服务](ALTIUM-SERVICE-BETA.zh-CN.md) · [本机集成接口](INTEGRATION.zh-CN.md)
-
-## 组件拓扑
+## 系统组成
 
 ```mermaid
 flowchart TB
-    Client["开发者 / MCP 客户端"]
+    Client["MCP 客户端"]
     Browser["本机浏览器"]
-    Connector["受限本机连接器"]
-
-    subgraph K["KiCad 主工程域"]
-        KMCP["FastMCP stdio"]
-        UI["Starlette 工作台"]
-        API["可选机器 API"]
-        Service["工程服务 / 版本门禁"]
-        Queue["持久任务队列"]
-        Worker["独立 Worker"]
-        Toolchain["KiCad CLI / pcbnew / Freerouting"]
-        Store["工程副本 / SQLite / 报告"]
-        KMCP --> Service
-        UI --> Service
-        API --> Service
-        Service --> Queue
-        Queue --> Worker
-        Worker --> Toolchain
-        Toolchain --> Store
-        Service --> Store
-    end
-
-    subgraph A["Altium 独立内测域"]
-        AMCP["FastMCP stdio"]
-        AQueue["独立 SQLite 队列"]
-        AWorker["独立 Worker"]
-        Static["源文件指纹与静态检查"]
-        Native["隔离副本原生检查（默认关闭）"]
-        AMCP --> AQueue
-        AQueue --> AWorker
-        AWorker --> Static
-        AWorker -.-> Native
-    end
-
-    Client --> KMCP
-    Client --> AMCP
-    Browser --> UI
-    Connector --> API
+    Client --> KEntry["KiCad MCP / 工作台"]
+    Client --> AEntry["Altium MCP"]
+    Browser --> KEntry
+    KEntry --> KCore["工程服务 + 持久任务"]
+    KCore --> KWorker["独立 Worker + KiCad / Freerouting"]
+    KWorker --> KData["工程版本 / 检查 / 发布产物"]
+    AEntry --> AQueue["独立 SQLite 任务库"]
+    AQueue --> AWorker["独立 Worker + 静态检查"]
 ```
 
-两套 MCP 均使用 stdio；工作进程独立于 MCP 会话。浏览器工作台和可选机器 API 属于 KiCad 主工程域，不能把它们当作 Altium 自动布线服务。
-
-## 责任分离
-
-| 层 | 实现 | 责任 |
+| 层 | 主要实现 | 职责 |
 | --- | --- | --- |
-| 工程决策 | `skills/pcb-engineering/` | 澄清设计约束、选择可行候选、解释风险与交付结果 |
-| 客户端协议 | [`server.py`](../src/pcb_weaver/server.py)、[`cli.py`](../src/pcb_weaver/cli.py) | KiCad MCP stdio 工具、资源、Prompt，以及 CLI |
-| 工作台与任务 | [`platform.py`](../src/pcb_weaver/platform.py)、[`jobs.py`](../src/pcb_weaver/jobs.py)、[`worker.py`](../src/pcb_weaver/worker.py) | 本机 HTTP、持久化任务、独立工作进程 |
-| 业务规则 | [`service.py`](../src/pcb_weaver/service.py) | 导入、版本、计划应用、路由、验证、ECO、制造发布 |
-| 计算与解析 | `board.py`、`planning.py`、`eco.py`、`netlist.py` | S-expression 几何、数值优化、依赖解释、XML 网表一致性 |
-| 规则转换 | `models.py`、`compiler.py` | 严格 Schema、制造下限编译、禁用关键检查的识别 |
-| 原生 EDA | `toolchain.py`、`native_bridge.py` | KiCad CLI/pcbnew、Java Freerouting、真实报告与文件 |
-| 存储与展示 | `storage.py`、`report.py` | SQLite、工程副本、哈希清单、HTML 审阅报告 |
-| Altium 内测域 | [`altium_service_mcp.py`](../scripts/altium_service_mcp.py)、[`altium_service.py`](../scripts/altium_service.py)、[`altium_service_worker.py`](../scripts/altium_service_worker.py) | 独立 MCP、任务库与静态检查；原生检查受显式门禁约束 |
+| KiCad 入口 | [`server.py`](../src/pcb_weaver/server.py)、[`platform.py`](../src/pcb_weaver/platform.py) | MCP stdio 与本机工作台 |
+| 工程执行 | [`service.py`](../src/pcb_weaver/service.py)、[`jobs.py`](../src/pcb_weaver/jobs.py)、[`worker.py`](../src/pcb_weaver/worker.py) | 版本门禁、任务快照与后台执行 |
+| 原生工具 | `toolchain.py`、`native_bridge.py` | KiCad CLI/pcbnew 与 Freerouting |
+| Altium 内测 | [`altium_service_mcp.py`](../scripts/altium_service_mcp.py)、[`altium_service_worker.py`](../scripts/altium_service_worker.py) | 独立 MCP、队列与静态检查 |
 
-Skill 中的语言约束不是唯一防线。MCP 和 CLI 使用同一服务，直接调用发布工具仍要重新验证。
+可选的[本机机器接口](INTEGRATION.zh-CN.md)接入 KiCad 工程域，默认关闭；它不是已认证的企业平台连接器。
 
-## 输入到输出
+## KiCad 工程流水线
 
 ```mermaid
-flowchart LR
-    Source["KiCad 工程 + 结构化约束"] --> Import["导入与哈希快照"]
-    Import --> Plan["布局候选与约束复验"]
-    Plan --> Route["DSN 导出 / Freerouting / SES 回导"]
-    Route --> Unverified["新版本：routed_unverified"]
-    Unverified --> Verify["KiCad ERC / DRC / 网表 / 几何复验"]
-    Verify -->|通过| Release["再次验证并导出制造包"]
-    Verify -->|不满足门禁| Blocked["blocked + 日志与证据"]
-    Release --> Archive["Gerber / 钻孔 / 贴装 / BOM / manifest"]
+flowchart TB
+    Import["导入工程与约束，固化哈希快照"]
+    Import --> Plan["生成并复验布局候选"]
+    Plan --> Route["导出 DSN → Freerouting → 回导 SES"]
+    Route --> Pending["新版本：routed_unverified"]
+    Pending --> Verify["KiCad ERC / DRC / 网表 / 几何检查"]
+    Verify -->|通过| Release["再次验证并生成制造包"]
+    Verify -->|失败| Blocked["blocked：保留日志与证据"]
 ```
 
-箭头表示阶段依赖，不代表每个输入都能自动走到发布。回导仅生成待验证版本；原生检查失败、未知几何或缺失必要证据时必须阻断。
+- **输入**：已有原理图、网络和封装的 KiCad 工程，以及结构化约束；不是一句自然语言需求。
+- **版本**：导入、布局应用、布线回导会生成新 revision。原工程不被直接覆盖，受管理副本受哈希校验。
+- **验证**：回导成功仍是 `routed_unverified`；只有对应版本的原生检查通过，才能尝试受门禁保护的发布。
+- **变更**：ECO、局部补线和受限重布都会产生新证据；不能拿旧版报告给新版放行。
 
-1. 输入是已经具备原理图、网络和封装的 KiCad 项目，不是任意一句产品需求。导入会复制相关设计文件，检查层次子页和项目库的本地依赖，并编译声明的制造下限。
-2. 每个工程版本保存 PCB、原理图、项目规则、本地原生库及约束的摘要。修改原始工程不影响已导入副本；修改受管理副本会被下一次操作识别并拒绝。
-3. 优化器保持器件角度、固定器件，使用实际焊盘坐标估算 HPWL，并以板框、器件间距、区域、邻近条件复验候选。可行不代表全局最优，也不代表电气性能最优。
-4. 应用已记录的候选生成子版本。路由在子版本工作副本上执行 DSN 导出、Freerouting、SES 回导。核对身份、位置、网络后才登记新版本；回导成功的状态仍是 `routed_unverified`。
-5. 验证在独立的完整项目副本上执行 DRC、ERC、XML 网表一致性及声明约束。保留真实日志与报告。未知几何、缺失必要检查、未连接或关键错误会阻止发布。
-6. 发布再次执行验证，从同版本生成 Gerber、钻孔、贴装位置和 BOM；有原理图时核对装配位号集合。所有设计、约束、检查和产物打包为带哈希 manifest 的 ZIP。
-7. 外部修改重新导入为 ECO 子版本，输出直接变化、相邻网络影响、受影响约束和失效工件。当前还提供显式受限的局部拆线重布和自动修复入口，但任何采用的铜线结果仍须全板原生复验；不能只凭局部检查放行。
+## 状态与边界
 
-## 状态与失败
+| 看到的状态 | 正确理解 |
+| --- | --- |
+| 任务 `completed` | 任务执行结束，不自动代表 PCB 可制造 |
+| 任务 `blocked` | 输入、能力或检查未满足要求；保留原因与日志 |
+| 版本 `routed_unverified` | 铜线已回导，但尚未通过独立原生复验 |
 
-持久任务的 `queued`、`running`、`completed`、`blocked` 等状态描述**任务执行**；工程版本的 `routed_unverified`、已验证结果及发布记录描述**设计证据**。二者不能互换：`completed` 不是制造授权，`blocked` 也不能改写成“基本通过”。
+已通过的样例只证明其冻结输入、配置和工具链环境，见[固定布局验收](FIXED-WHOLEBOARD-VALIDATION.md)和[系统验证](SYSTEM_VALIDATION.zh-CN.md)。系统不提供任意复杂板的保证，也不替代 SI/PI、EMC、安规、机械、装配、CAM 和实板测试。
 
-- 导入、应用布局和成功回导分别产生新的 revision ID；不能用旧 ID 代表新板。
-- `blocked` 表示缺失能力、超出支持范围或检查不满足，不是成功预演。
-- 每项目文件锁防止协作客户端同时修改受管理状态。外部程序不受该锁管理，因此操作前后仍校验文件摘要。
-- 未成功的路由和导出可能保留未登记的暂存目录与日志以便诊断，但不会自动成为已验证版本或正式发布包。
-- 外部工具通过参数数组启动，设有超时；服务不执行来自器件属性、原理图文本或模型回答的任意 shell 命令。
-- manifest 校验验证文件集合和字节完整性，不证明签发者身份；本地 SQLite 哈希链不是经过外部锚定的合规审计账本。
-
-## 工程边界
-
-当前源码覆盖布局、固定布局整板完成、局部补线与受限重布等多条 KiCad 路径；部分双层和四层样例已有原生通过记录，详见[固定布局验收](FIXED-WHOLEBOARD-VALIDATION.md)及[系统验证](SYSTEM_VALIDATION.zh-CN.md)。这些记录只证明对应冻结输入、配置与环境，不能推断任意复杂板或生产制造通过。规则编译使用保守的制造下限，不提供完整阻抗合成、差分时序调优或硬件可靠性签署。
-
-项目表中引用的库必须在工程副本内；全局 KiCad 库、3D 模型及全部用户工具设置并未被完整封存。验证和发布会报告此依赖范围。该版本不是用于运行不可信原生 EDA 文件的沙箱，也不提供多租户远程鉴权服务。
-
-KiCad 的原生兼容层会探测不同接口，但其他版本不能因探测成功就视为实机通过。Altium 内测服务的默认启动脚本强制 `ALTIUM_SERVICE_NATIVE_LAUNCH=0`；它不自动路由、不回写原工程，也不复用 KiCad 的制造门禁。详见[Altium 服务边界](ALTIUM-SERVICE-BETA.zh-CN.md)。
-
-完成软件链路后仍需硬件工程师进行功能、电气裕量、SI/PI、热、EMC、安规、机械、装配旋转、物料与工厂 CAM 审查，以及真实打样测试。软件不能自动签署这些未覆盖的结论。
+Altium 内测服务默认关闭原生启动，仅提供静态检查与持久任务；不能自动布线、回写原工程或借用 KiCad 的发布门禁。详见[Altium 服务说明](ALTIUM-SERVICE-BETA.zh-CN.md)。
