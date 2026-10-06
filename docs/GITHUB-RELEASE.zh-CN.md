@@ -1,4 +1,23 @@
-# GitHub 开发者内测版发布准备
+# GitHub 开发者内测版配置
+
+> [!TIP]
+> 先选择使用哪套 MCP：KiCad 主入口需要本机 EDA 工具链；Altium 内测入口需要允许检查的工程目录和独立 worker。两个入口不能共用配置，也不能互相替代。
+
+[返回首页](../README.md) · [技术架构](ARCHITECTURE.zh-CN.md) · [Altium 任务说明](ALTIUM-SERVICE-BETA.zh-CN.md)
+
+```mermaid
+flowchart LR
+    Repo["公开源码仓库"] --> KSetup["Setup.ps1"]
+    Repo --> ASetup["Setup-Altium-Service.ps1"]
+    KSetup --> KConfig["本机 .mcp.json + toolchain 配置"]
+    ASetup --> AConfig["本机 altium-service.mcp.json"]
+    KConfig --> KMCP["KiCad 主 MCP"]
+    AConfig --> AMCP["Altium 内测 MCP"]
+    AConfig --> AWorker["Start-Altium-Service.ps1"]
+    AWorker --> AJobs["独立任务库与静态检查"]
+```
+
+生成的本机配置、工程文件、任务库和历史验收资料不随源码仓库发布。下面的步骤只配置 **Altium 开发者内测服务**；KiCad 安装入口见[首页](../README.md#本机使用)。
 
 ## 能力边界
 

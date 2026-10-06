@@ -1,5 +1,38 @@
 # PCB Weaver
 
+面向 KiCad 的工程版本管理、约束布局、布线编排与验证工具，并提供独立的 Altium 静态检查内测服务。
+
+> [!IMPORTANT]
+> 这是本机开发者内测项目，不是已经取得工业认证的生产布线平台。KiCad 主链路与 Altium 内测服务相互独立；Altium 入口目前不能自动排版布线、回写 PCB 或制造放行。
+
+| 入口 | 当前可用能力 | 使用边界 |
+| --- | --- | --- |
+| **KiCad 主 MCP** | 工程导入、约束布局、自动布线编排、原生复验、ECO 与受门禁保护的制造产物 | 依赖本机 KiCad、Java、Freerouting；通过的样例不能外推到任意板 |
+| **Altium 内测 MCP** | 允许目录内工程静态检查、持久任务与结果查询 | 默认不启动 Altium；不提供自动布线、回写或完整 DRC |
+| **本机工作台 / 集成接口** | 查看版本、任务、报告；可选受限机器 API | 仅面向受信任本机环境，不是企业云连接器 |
+
+## 系统速览
+
+```mermaid
+flowchart LR
+    Client["开发者 / MCP 客户端"] --> KMCP["KiCad 主 MCP"]
+    Client --> AMCP["Altium 内测 MCP"]
+    KMCP --> KService["工程服务与任务队列"]
+    KService --> KWorker["独立 Worker"]
+    KWorker --> Tools["KiCad + Freerouting"]
+    Tools --> Gate["原生复验与发布门禁"]
+    Gate --> Outputs["版本 / 报告 / 制造产物"]
+    AMCP --> AQueue["独立 SQLite 队列"]
+    AQueue --> AWorker["Altium Worker"]
+    AWorker --> Static["静态工程检查"]
+    AWorker -.-> Native["隔离副本原生检查（默认关闭）"]
+```
+
+**继续阅读：** [完整技术架构](docs/ARCHITECTURE.zh-CN.md) · [KiCad 本机使用](#本机使用) · [Altium 内测说明](docs/ALTIUM-SERVICE-BETA.zh-CN.md) · [公开仓库安装](docs/GITHUB-RELEASE.zh-CN.md)
+
+<details>
+<summary>展开历史阶段与本机验收记录（证据存档不随公开仓库发布）</summary>
+
 面向 KiCad 的约束驱动布局、自动布线编排、ECO 改版分析和制造证据管理项目。包含可运行的 Python 工程服务、官方 SDK 实现的 MCP、Codex Skill、命令行、测试、示例工程和 HTML 审阅报告。
 
 这是 v0.4 局部铜线修复版及后续自动修复增量：在工程台账、持久化长任务和制造证据门禁上，增加按网络/矩形区域限定的补线、显式拆线重布及原生前后对照。已有整板与局部重布编排使用 Freerouting；新增自动断线修复使用受限几何网格候选、原始 AST 合并和 KiCad 全板复验，不声称顶尖工业布线算法。尚未经过实板、量产或工业认证。历史范围见 [系统方案](docs/SYSTEM_PLAN.zh-CN.md)，接口见 [集成说明](docs/INTEGRATION.zh-CN.md)。
@@ -33,6 +66,8 @@ v4 [真实过孔清理诊断](docs/validation/fixed-v4-via-cleanup-diagnostic.js
 v4 [全量回归](docs/validation/fixed-wholeboard-v4-regression.xml)已完成：2007 项中 **1981 passed、26 skipped、0 failure、0 error**，测试摘要耗时 352.45 秒（XML suite 计时 352.414 秒），不能表述为全部 2007 项执行。[部署预检](docs/validation/fixed-v4-deployment-preflight.json)及[最终部署报告](docs/validation/fixed-v4-deployment-final.json)均为 225 文件 passed，最终部署实际 exit 0。正常 8765 发布 system 页的只读 Chrome 截图检查亦 exit 0、无 JS 错误，[截图证据](docs/validation/fixed-system-v4-published-desktop.png)已保留。**当前 v4 固定布局阶段的原生、UI、发布、MCP 和部署门禁均通过**，不外推至其他设计或阶段，也不授权制造。最终部署报告记录所校验文件的哈希；本次终稿与桌面的一致性以该报告为准。
 
 历史 v3 全套软件回归使用 D 盘临时目录[重跑完成](docs/validation/fixed-wholeboard-v3-regression-d-final.xml)：1909 项中 **1883 passed、26 skipped、0 failure、0 error**，耗时 357.808 秒。26 项跳过包括 22 项 opt-in/原生命令缺配置和 4 项 symlink 权限限制，不能表述为 1909 项全部执行。[此前报告](docs/validation/fixed-wholeboard-v3-regression-final.xml)的 1879 passed、4 failure 原样保留，四项失败均为 ENOSPC；[11 项 placement 测试](docs/validation/fixed-v3-placement-d-temp-3.xml)未改代码即在 D 盘通过。这些记录不替代 v4 回归或原生验收。
+
+</details>
 
 ## 工程链路
 
