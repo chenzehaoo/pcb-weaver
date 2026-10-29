@@ -1,5 +1,19 @@
 # Local engines
 
+[Project overview](../README.md) · [Deployment and MCP setup](../docs/GETTING-STARTED.zh-CN.md) · [Technical architecture](../docs/ARCHITECTURE.zh-CN.md)
+
+## Default startup profile
+
+`Setup.ps1`, `Start-Platform.ps1` and `Start-Worker.ps1` default to
+[`toolchain.unified.json`](../toolchain.unified.json): WSL Ubuntu, KiCad CLI /
+Python, `tools/jre25-linux/bin/java` and `tools/freerouting-2.4.1.jar`.
+Match these paths to the installed environment and run the setup diagnostic.
+The setup script installs Python dependencies, not the native engines.
+The 2.4.1 runtime details appear below; the 2.0.1 and 1.9.0 sections preserve
+earlier profiles and their measured results rather than changing the startup default.
+
+## Earlier Freerouting 2.0.1 profile
+
 Freerouting is downloaded separately from its official GitHub release.
 The engine remains a separate GPL-licensed program; this project invokes its CLI.
 The exact engine hash and toolchain versions are recorded in verification artifacts.

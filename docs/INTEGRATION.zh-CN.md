@@ -1,4 +1,12 @@
-# v0.3 本机工程集成
+# 本机工程集成
+
+[首页](../README.md) · [系统架构](ARCHITECTURE.zh-CN.md) · [MCP 接入](GETTING-STARTED.zh-CN.md) · [文档导航](README.md)
+
+## 在系统中的位置
+
+[![本机机器接口与 MCP、工作台、持久任务及 Worker 的边界](assets/architecture/runtime-integration.svg)](assets/architecture/runtime-integration.svg)
+
+**图｜机器接口复用 KiCad 工程域。** 连接器经过授权后读取已有工程版本，或提交持久任务；任务仍由同一工作区的执行器处理。机器令牌的范围不扩展到 MCP 或普通工作台入口，也不覆盖独立的 Altium 服务。版本与发布证据的关系见[技术架构](ARCHITECTURE.zh-CN.md)。
 
 ## 实际定位
 

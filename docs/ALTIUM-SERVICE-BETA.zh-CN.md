@@ -7,24 +7,9 @@
 
 ## 一次检查如何流转
 
-```mermaid
-sequenceDiagram
-    participant Client as MCP 客户端
-    participant MCP as Altium stdio MCP
-    participant DB as 独立任务库
-    participant Worker as 常驻 Worker
-    participant Source as 允许目录内的工程
-    Client->>MCP: altium_submit_inspection(project_path)
-    MCP->>Source: 核对路径与文件指纹
-    MCP->>DB: 记录 queued 任务
-    MCP-->>Client: 返回 job_id
-    Worker->>DB: 领取任务并续租
-    Worker->>Source: 复核指纹，执行静态检查
-    Worker->>DB: 写入 completed 或 blocked
-    Client->>MCP: altium_get_job(job_id)
-    MCP->>DB: 查询持久结果
-    MCP-->>Client: 返回状态与证据
-```
+[![Altium 独立静态检查链路、租约恢复与受限原生实验边界](assets/architecture/altium-service.svg)](assets/architecture/altium-service.svg)
+
+**图｜提交、持久化、独立执行与结果重查。** 提交时核对允许目录与源文件指纹，Worker 领取后再核对输入并续租。结果回写独立 SQLite，客户端通过 `altium_get_job` 查询。图下方分别列出恢复规则与默认关闭的原生实验分支；它们不属于 KiCad 布线或发布流水线。
 
 MCP 会话断开不会清除任务；没有 worker 时任务停留在 `queued`。源文件在提交后变化会阻断处理，不会继续使用旧指纹。原生检查是**另一个受限分支**，不在上图的默认静态流程中。
 

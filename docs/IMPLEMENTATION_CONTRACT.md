@@ -1,7 +1,9 @@
 # Implementation contract
 
-Historical v0.1 implementation contract. See `SYSTEM_PLAN.zh-CN.md` and
-`SYSTEM_VALIDATION.zh-CN.md` for the current system scope and measured acceptance.
+Historical v0.1 implementation contract. For current module relationships and
+runtime boundaries, see [Technical architecture](ARCHITECTURE.zh-CN.md).
+[SYSTEM_PLAN.zh-CN.md](SYSTEM_PLAN.zh-CN.md) preserves the system-stage plan;
+[SYSTEM_VALIDATION.zh-CN.md](SYSTEM_VALIDATION.zh-CN.md) records measured acceptance.
 
 Independent implementation; upstream source is research material, not copied code.
 Python 3.11+, Pydantic v2, sexpdata AST, scipy optimization, official MCP SDK.

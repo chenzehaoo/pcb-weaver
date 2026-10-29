@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1120" viewBox="0 0 1760 1120" role="img" aria-labelledby="title desc">
+<title id="title">02  工程流水线  /  Constraint-to-evidence pipeline</title><desc id="desc">工程导入为 r0，布局候选应用为 r1，经 DSN、Freerouting、SES 得到待验证 r2。原生复验通过后可显式请求发布并重新检查；失败进入有限修复或人工审查。</desc>
+<defs><marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#3C6D9C" stroke-width="1.6"/></marker><marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#287F7A" stroke-width="1.6"/></marker><marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#AD7733" stroke-width="1.6"/></marker><marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#AD5552" stroke-width="1.6"/></marker><marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#63758A" stroke-width="1.6"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC","PingFang SC",Arial,sans-serif} .mono{font-family:Consolas,"Liberation Mono",monospace}</style>
+<rect x="0" y="0" width="1760" height="1120" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="48" y="57" font-size="34" fill="#24364B" font-weight="700" text-anchor="start">02  工程流水线  /  Constraint-to-evidence pipeline</text>
+<text x="48" y="99" font-size="20" fill="#63758A" font-weight="400" text-anchor="start">输入是已有工程与结构化约束；输出是新版本、原生检查证据与明确的阻断原因</text>
+<path d="M48 124 H1712" stroke="#BCCAD6"/>
+<rect x="48" y="160" width="1664" height="270" rx="12" fill="#EDF3FA" stroke="#3C6D9C" stroke-width="1.5"/>
+<text x="70" y="196" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">A  输入与布局</text>
+<rect x="76" y="224" width="348" height="155" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M78 236 V367" stroke="#3C6D9C" stroke-width="4"/>
+<circle cx="106" cy="256" r="16" fill="#3C6D9C"/>
+<text x="106" y="262" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">1</text>
+<text x="133" y="262" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">工程输入</text>
+<text x="98" y="296" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">PCB / 原理图 / 项目规则</text>
+<text x="98" y="325" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">本地库 + 结构化约束</text>
+<text x="98" y="354" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">已有网络与封装</text>
+<rect x="492" y="224" width="348" height="155" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M494 236 V367" stroke="#3C6D9C" stroke-width="4"/>
+<circle cx="522" cy="256" r="16" fill="#3C6D9C"/>
+<text x="522" y="262" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">2</text>
+<text x="549" y="262" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">导入与快照</text>
+<text x="514" y="296" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">复制设计 · 编译规则</text>
+<text x="514" y="325" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">SHA-256 + parent revision</text>
+<text x="514" y="354" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">生成 r₀</text>
+<rect x="908" y="224" width="348" height="155" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M910 236 V367" stroke="#3C6D9C" stroke-width="4"/>
+<circle cx="938" cy="256" r="16" fill="#3C6D9C"/>
+<text x="938" y="262" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">3</text>
+<text x="965" y="262" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">布局候选</text>
+<text x="930" y="296" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">SLSQP / 分块 / 合法化</text>
+<text x="930" y="325" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">度量 + 约束复验</text>
+<text x="930" y="354" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">选择可行候选</text>
+<rect x="1324" y="224" width="360" height="155" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M1326 236 V367" stroke="#3C6D9C" stroke-width="4"/>
+<circle cx="1354" cy="256" r="16" fill="#3C6D9C"/>
+<text x="1354" y="262" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">4</text>
+<text x="1381" y="262" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">应用布局</text>
+<text x="1346" y="296" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">保存计划与候选 ID</text>
+<text x="1346" y="325" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">修改副本 · 重新封存</text>
+<text x="1346" y="354" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">生成 r₁</text>
+<path d="M424 302 L492 302" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<path d="M840 302 L908 302" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<path d="M1256 302 L1324 302" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="48" y="492" width="1664" height="220" rx="12" fill="#EDF6F3" stroke="#287F7A" stroke-width="1.5"/>
+<text x="70" y="528" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">B  原生布线</text>
+<rect x="76" y="553" width="348" height="115" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M78 565 V656" stroke="#287F7A" stroke-width="4"/>
+<text x="98" y="591" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">KiCad / pcbnew</text>
+<text x="98" y="625" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">导出 board.dsn</text>
+<rect x="492" y="553" width="348" height="115" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M494 565 V656" stroke="#287F7A" stroke-width="4"/>
+<text x="514" y="591" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">Freerouting / Java</text>
+<text x="514" y="625" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">运行路由 · 生成 board.ses</text>
+<rect x="908" y="553" width="348" height="115" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M910 565 V656" stroke="#287F7A" stroke-width="4"/>
+<text x="930" y="591" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">KiCad / pcbnew</text>
+<text x="930" y="625" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">回导 SES · 核对电气身份</text>
+<rect x="1324" y="553" width="360" height="115" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M1326 565 V656" stroke="#287F7A" stroke-width="4"/>
+<text x="1346" y="591" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">新版本 r₂</text>
+<text x="1346" y="625" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">routed_unverified</text>
+<path d="M1504 379 L1504 460 L250 460 L250 553" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="613" y="431" width="174" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="620" y="451" font-size="19" fill="#287F7A" font-weight="400" text-anchor="start">支持的未布线输入</text>
+<path d="M424 611 L492 611" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<path d="M840 611 L908 611" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<path d="M1256 611 L1324 611" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="76" y="790" width="560" height="172" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M78 802 V950" stroke="#287F7A" stroke-width="4"/>
+<circle cx="106" cy="822" r="16" fill="#287F7A"/>
+<text x="106" y="828" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">5</text>
+<text x="133" y="828" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">原生复验：针对精确 revision</text>
+<text x="98" y="862" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">DRC / ERC（按 require_erc 配置）</text>
+<text x="98" y="891" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">网表一致性 · 几何 / 线宽 / 规则覆盖</text>
+<text x="98" y="920" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">输出 verification_id + revision_digest</text>
+<path d="M1504 668 L1504 752 L356 752 L356 790" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="744" y="790" width="428" height="172" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M746 802 V950" stroke="#287F7A" stroke-width="4"/>
+<circle cx="774" cy="822" r="16" fill="#287F7A"/>
+<text x="774" y="828" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">6</text>
+<text x="801" y="828" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">显式请求发布</text>
+<text x="766" y="862" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">fresh verification 再检查</text>
+<text x="766" y="891" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">制造文件 / BOM-CPL 对照</text>
+<text x="766" y="920" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">manifest + 哈希 ZIP</text>
+<path d="M636 851 L744 851" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="651" y="813" width="54" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="658" y="833" font-size="19" fill="#287F7A" font-weight="400" text-anchor="start">通过</text>
+<rect x="1280" y="790" width="404" height="172" rx="8" fill="white" stroke="#AD5552" stroke-width="1.5"/>
+<path d="M1282 802 V950" stroke="#AD5552" stroke-width="4"/>
+<text x="1302" y="828" font-size="24" fill="#AD5552" font-weight="700" text-anchor="start">阻断 / 有限恢复</text>
+<text x="1302" y="862" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">保留失败阶段与原生日志</text>
+<text x="1302" y="891" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">受限修复 → 新版本 → 复验</text>
+<text x="1302" y="920" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">预算耗尽 → 人工审查</text>
+<path d="M636 923 L690 923 L690 1000 L1482 1000 L1482 962" fill="none" stroke="#AD5552" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-red)"/>
+<rect x="743" y="974" width="247" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="750" y="994" font-size="19" fill="#AD5552" font-weight="400" text-anchor="start">检查未通过 / 工具不可用</text>
+<path d="M1280 820 L1220 820 L1220 774 L356 774 L356 790" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)" stroke-dasharray="7 6"/>
+<rect x="753" y="748" width="194" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="760" y="768" font-size="19" fill="#AD7733" font-weight="400" text-anchor="start">受限修复后重新检查</text>
+<path d="M48 1033 H1712" stroke="#BCCAD6"/>
+<text x="48" y="1064" font-size="19" fill="#63758A" font-weight="400" text-anchor="start">completion 是有候选数、时间和修复次数上限的编排；它不授权制造。布局可行、布线回导、任务完成、制造门禁是不同结论。</text>
+<text x="1712" y="1100" font-size="14" fill="#63758A" font-weight="400" text-anchor="end">PCB WEAVER  /  TECHNICAL ARCHITECTURE</text>
+</svg>

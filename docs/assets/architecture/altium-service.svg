@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1030" viewBox="0 0 1760 1030" role="img" aria-labelledby="title desc">
+<title id="title">05  Altium 服务  /  Isolated inspection service</title><desc id="desc">MCP 提交时检查路径与文件指纹，任务写入独立 SQLite。Worker 领取、续租、复核指纹后执行静态检查，结果可重连查询。受限原生实验默认被门禁阻断，不提供路由回写和制造放行。</desc>
+<defs><marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#3C6D9C" stroke-width="1.6"/></marker><marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#287F7A" stroke-width="1.6"/></marker><marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#AD7733" stroke-width="1.6"/></marker><marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#AD5552" stroke-width="1.6"/></marker><marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#63758A" stroke-width="1.6"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC","PingFang SC",Arial,sans-serif} .mono{font-family:Consolas,"Liberation Mono",monospace}</style>
+<rect x="0" y="0" width="1760" height="1030" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="48" y="57" font-size="34" fill="#24364B" font-weight="700" text-anchor="start">05  Altium 服务  /  Isolated inspection service</text>
+<text x="48" y="99" font-size="20" fill="#63758A" font-weight="400" text-anchor="start">持久任务 · 允许目录 · 文件指纹 · 租约恢复；静态检查与实验原生分支严格区分</text>
+<path d="M48 124 H1712" stroke="#BCCAD6"/>
+<rect x="48" y="164" width="1664" height="394" rx="12" fill="#FBF5E9" stroke="#AD7733" stroke-width="1.5"/>
+<text x="70" y="200" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">A  默认公开内测路径</text>
+<rect x="80" y="236" width="350" height="191" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M82 248 V415" stroke="#AD7733" stroke-width="4"/>
+<circle cx="110" cy="268" r="16" fill="#AD7733"/>
+<text x="110" y="274" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">1</text>
+<text x="137" y="274" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">Altium stdio MCP</text>
+<text x="102" y="308" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">允许工程根目录检查</text>
+<text x="102" y="337" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">记录显式文档指纹</text>
+<text x="102" y="366" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">提交 inspect → 返回 job_id</text>
+<text x="102" y="395" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">客户端可断开后重连</text>
+<path d="M500 266 C500 246,850 246,850 266 V382 C850 402,500 402,500 382 Z" fill="white" stroke="#AD7733" stroke-width="1.7"/>
+<path d="M500 266 C500 286,850 286,850 266" fill="none" stroke="#AD7733" stroke-width="1.4"/>
+<text x="675.0" y="308" font-size="23" fill="#AD7733" font-weight="700" text-anchor="middle">独立 SQLite</text>
+<text x="675.0" y="339" font-size="19" fill="#24364B" font-weight="400" text-anchor="middle">data/altium-service/</text>
+<text x="675.0" y="366" font-size="19" fill="#24364B" font-weight="400" text-anchor="middle">jobs.sqlite3</text>
+<rect x="920" y="236" width="350" height="191" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M922 248 V415" stroke="#AD7733" stroke-width="4"/>
+<circle cx="950" cy="268" r="16" fill="#AD7733"/>
+<text x="950" y="274" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">2</text>
+<text x="977" y="274" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">常驻 Worker</text>
+<text x="942" y="308" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">领取 queued → running</text>
+<text x="942" y="337" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">租约 / 心跳续期</text>
+<text x="942" y="366" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">复核源文件指纹</text>
+<text x="942" y="395" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">执行 inspect</text>
+<rect x="1340" y="236" width="340" height="191" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M1342 248 V415" stroke="#AD7733" stroke-width="4"/>
+<circle cx="1370" cy="268" r="16" fill="#AD7733"/>
+<text x="1370" y="274" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">3</text>
+<text x="1397" y="274" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">检查结果</text>
+<text x="1362" y="308" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">completed / blocked / failed</text>
+<text x="1362" y="337" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">文件清单与静态证据</text>
+<text x="1362" y="366" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">native_executed = false</text>
+<text x="1362" y="395" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">不修改原始工程</text>
+<path d="M430 325 L500 325" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<path d="M850 325 L920 325" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<path d="M1270 325 L1340 325" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<path d="M1510 427 L1510 491 L675 491 L675 397" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)" stroke-dasharray="7 6"/>
+<rect x="833" y="464" width="379" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="840" y="484" font-size="19" fill="#AD7733" font-weight="400" text-anchor="start">结果持久化；altium_get_job 重新查询</text>
+<rect x="48" y="625" width="796" height="275" rx="12" fill="#EDF6F3" stroke="#287F7A" stroke-width="1.5"/>
+<text x="70" y="661" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">B  恢复规则</text>
+<text x="80" y="704" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">没有 Worker</text>
+<text x="375" y="704" font-size="24" fill="#24364B" font-weight="400" text-anchor="start">queued 保持排队</text>
+<text x="80" y="761" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">提交后输入改变</text>
+<text x="375" y="761" font-size="24" fill="#24364B" font-weight="400" text-anchor="start">blocked，要求重新提交</text>
+<text x="80" y="818" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">running 租约过期</text>
+<text x="375" y="818" font-size="23" fill="#24364B" font-weight="400" text-anchor="start">blocked，不自动重试原生操作</text>
+<text x="80" y="875" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">取消范围</text>
+<text x="375" y="875" font-size="23" fill="#24364B" font-weight="400" text-anchor="start">仅 queued；不强杀原生进程</text>
+<rect x="900" y="625" width="812" height="275" rx="12" fill="#FAEFEE" stroke="#AD5552" stroke-width="1.5" stroke-dasharray="8 6"/>
+<text x="922" y="661" font-size="24" fill="#AD5552" font-weight="700" text-anchor="start">C  受限原生实验分支</text>
+<text x="932" y="704" font-size="25" fill="#AD5552" font-weight="600" text-anchor="start" class="mono">altium_submit_native_check</text>
+<text x="932" y="754" font-size="22" fill="#24364B" font-weight="400" text-anchor="start">公开 Start-Altium-Service.ps1 要求原生启动开关为 0。</text>
+<text x="932" y="804" font-size="22" fill="#24364B" font-weight="400" text-anchor="start">底层实验还检查 Windows、X2.EXE 与 pending 锁。</text>
+<text x="932" y="854" font-size="22" fill="#24364B" font-weight="400" text-anchor="start">不提供自动布线、工程回写、全量 DRC 或制造放行。</text>
+<path d="M48 943 H1712" stroke="#BCCAD6"/>
+<text x="48" y="974" font-size="19" fill="#63758A" font-weight="400" text-anchor="start">此服务不使用 KiCad ledger.sqlite3，不借用 KiCad 的复验或发布结论。历史原生实验文档不代表默认内测入口具备相应能力。</text>
+<text x="1712" y="1010" font-size="14" fill="#63758A" font-weight="400" text-anchor="end">PCB WEAVER  /  TECHNICAL ARCHITECTURE</text>
+</svg>

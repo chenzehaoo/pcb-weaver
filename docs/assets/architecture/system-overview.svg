@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1390" viewBox="0 0 1760 1390" role="img" aria-labelledby="title desc">
+<title id="title">01  系统总览  /  System architecture</title><desc id="desc">MCP、工作台和可选机器接口连接 KiCad 工程服务。持久任务由工作台或独立 Worker 执行；布局、布线、验证和发布共享版本门禁。Altium 使用独立 MCP、SQLite 和 Worker，仅提供静态检查内测。</desc>
+<defs><marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#3C6D9C" stroke-width="1.6"/></marker><marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#287F7A" stroke-width="1.6"/></marker><marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#AD7733" stroke-width="1.6"/></marker><marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#AD5552" stroke-width="1.6"/></marker><marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#63758A" stroke-width="1.6"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC","PingFang SC",Arial,sans-serif} .mono{font-family:Consolas,"Liberation Mono",monospace}</style>
+<rect x="0" y="0" width="1760" height="1390" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="48" y="57" font-size="34" fill="#24364B" font-weight="700" text-anchor="start">01  系统总览  /  System architecture</text>
+<text x="48" y="99" font-size="20" fill="#63758A" font-weight="400" text-anchor="start">本机工程编排 · 独立执行生命周期 · 版本绑定的验证证据</text>
+<path d="M48 124 H1712" stroke="#BCCAD6"/>
+<rect x="48" y="155" width="510" height="105" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M50 167 V248" stroke="#3C6D9C" stroke-width="4"/>
+<text x="70" y="193" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">AI / MCP 客户端</text>
+<text x="70" y="227" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">工程读取 · 直接工具 · 提交 / 查询任务</text>
+<rect x="606" y="155" width="510" height="105" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M608 167 V248" stroke="#3C6D9C" stroke-width="4"/>
+<text x="628" y="193" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">本机浏览器</text>
+<text x="628" y="227" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">工作台 HTTP · 工程与证据可视化</text>
+<rect x="1164" y="155" width="548" height="105" rx="8" fill="white" stroke="#63758A" stroke-width="1.5"/>
+<path d="M1166 167 V248" stroke="#63758A" stroke-width="4"/>
+<text x="1186" y="193" font-size="24" fill="#63758A" font-weight="700" text-anchor="start">本机连接器（可选）</text>
+<text x="1186" y="227" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">机器接口 · 默认关闭</text>
+<rect x="48" y="320" width="1080" height="750" rx="12" fill="#EDF3FA" stroke="#3C6D9C" stroke-width="1.5"/>
+<text x="70" y="356" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">A  KiCad 工程域</text>
+<rect x="1164" y="320" width="548" height="750" rx="12" fill="#FBF5E9" stroke="#AD7733" stroke-width="1.5"/>
+<text x="1186" y="356" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">B  Altium 静态检查内测</text>
+<rect x="76" y="390" width="310" height="108" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M78 402 V486" stroke="#3C6D9C" stroke-width="4"/>
+<text x="98" y="428" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">stdio MCP</text>
+<text x="98" y="462" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">server.py</text>
+<rect x="424" y="390" width="310" height="108" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M426 402 V486" stroke="#3C6D9C" stroke-width="4"/>
+<text x="446" y="428" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">HTTP 工作台</text>
+<text x="446" y="462" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">platform.py</text>
+<rect x="772" y="390" width="328" height="108" rx="8" fill="white" stroke="#63758A" stroke-width="1.5"/>
+<path d="M774 402 V486" stroke="#63758A" stroke-width="4"/>
+<text x="794" y="428" font-size="24" fill="#63758A" font-weight="700" text-anchor="start">机器接口</text>
+<text x="794" y="462" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">integration.py · 有范围授权</text>
+<path d="M300 260 L300 294 L365 294 L365 390" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="303" y="267" width="69" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="310" y="287" font-size="19" fill="#3C6D9C" font-weight="400" text-anchor="start">stdio</text>
+<path d="M861 260 L861 280 L579 280 L579 390" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="595" y="254" width="157" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="602" y="274" font-size="19" fill="#3C6D9C" font-weight="400" text-anchor="start">loopback HTTP</text>
+<path d="M1438 260 L1438 285 L936 285 L936 390" fill="none" stroke="#63758A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-muted)" stroke-dasharray="7 6"/>
+<rect x="76" y="568" width="460" height="133" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M78 580 V689" stroke="#3C6D9C" stroke-width="4"/>
+<circle cx="106" cy="600" r="16" fill="#3C6D9C"/>
+<text x="106" y="606" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">1</text>
+<text x="133" y="606" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">持久任务与执行器</text>
+<text x="98" y="640" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">JobQueue · 运行配置 / 输入快照</text>
+<text x="98" y="669" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">工作台线程 或 独立 worker.py</text>
+<rect x="594" y="568" width="506" height="133" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M596 580 V689" stroke="#3C6D9C" stroke-width="4"/>
+<circle cx="624" cy="600" r="16" fill="#3C6D9C"/>
+<text x="624" y="606" font-size="17" fill="#fff" font-weight="700" text-anchor="middle">2</text>
+<text x="651" y="606" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">共享工程服务</text>
+<text x="616" y="640" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">EngineeringService · 项目锁</text>
+<text x="616" y="669" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">导入 / 修改 / 检查 / 发布门禁</text>
+<path d="M231 498 L231 568" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<path d="M579 498 L579 530 L306 530 L306 568" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<path d="M936 498 L936 540 L478 540 L478 568" fill="none" stroke="#63758A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-muted)" stroke-dasharray="7 6"/>
+<path d="M536 634 L594 634" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="534" y="599" width="54" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="541" y="619" font-size="19" fill="#3C6D9C" font-weight="400" text-anchor="start">调用</text>
+<path d="M386 444 L405 444 L405 518 L847 518 L847 568" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="693" y="492" width="94" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="700" y="512" font-size="19" fill="#3C6D9C" font-weight="400" text-anchor="start">直接工具</text>
+<rect x="76" y="778" width="310" height="133" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M78 790 V899" stroke="#287F7A" stroke-width="4"/>
+<text x="98" y="816" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">约束与布局</text>
+<text x="98" y="850" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">models / compiler</text>
+<text x="98" y="879" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">planning / placement_large</text>
+<rect x="424" y="778" width="310" height="133" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M426 790 V899" stroke="#287F7A" stroke-width="4"/>
+<text x="446" y="816" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">布线与受限修复</text>
+<text x="446" y="850" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">completion / repair 系列</text>
+<text x="446" y="879" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">候选 · 预算 · 局部策略</text>
+<rect x="772" y="778" width="328" height="133" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M774 790 V899" stroke="#287F7A" stroke-width="4"/>
+<text x="794" y="816" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">复验与工程产物</text>
+<text x="794" y="850" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">原生检查 · ECO · 台账</text>
+<text x="794" y="879" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">报告 · 受控制造包</text>
+<path d="M847 701 L847 740 L231 740 L231 778" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<path d="M579 740 L579 778" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<path d="M847 740 L936 740 L936 778" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="76" y="966" width="1024" height="76" rx="8" fill="#EDF6F3" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M78 978 V1030" stroke="#287F7A" stroke-width="4"/>
+<text x="98" y="1004" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">原生工具适配：KiCad CLI / pcbnew  ⇄  Freerouting (Java)</text>
+<path d="M579 911 L579 966" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<path d="M936 911 L936 966" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="1192" y="390" width="492" height="108" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M1194 402 V486" stroke="#AD7733" stroke-width="4"/>
+<text x="1214" y="428" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">独立 stdio MCP</text>
+<text x="1214" y="462" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">scripts/altium_service_mcp.py</text>
+<path d="M558 205 L582 205 L582 304 L1697 304 L1697 368 L1438 368 L1438 390" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="1473" y="276" width="134" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="1480" y="296" font-size="19" fill="#AD7733" font-weight="400" text-anchor="start">独立服务条目</text>
+<path d="M1220 565 C1220 545,1656 545,1656 565 V650 C1656 670,1220 670,1220 650 Z" fill="white" stroke="#AD7733" stroke-width="1.7"/>
+<path d="M1220 565 C1220 585,1656 585,1656 565" fill="none" stroke="#AD7733" stroke-width="1.4"/>
+<text x="1438.0" y="607" font-size="23" fill="#AD7733" font-weight="700" text-anchor="middle">独立 SQLite 任务库</text>
+<text x="1438.0" y="638" font-size="19" fill="#24364B" font-weight="400" text-anchor="middle">jobs.sqlite3 · 输入指纹</text>
+<path d="M1438 498 L1438 550" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="1192" y="723" width="492" height="133" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M1194 735 V844" stroke="#AD7733" stroke-width="4"/>
+<text x="1214" y="761" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">Altium Worker</text>
+<text x="1214" y="795" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">领取 / 续租 · 执行前复核指纹</text>
+<text x="1214" y="824" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">过期 running → blocked</text>
+<path d="M1438 665 L1438 723" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="1192" y="914" width="492" height="128" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M1194 926 V1030" stroke="#AD7733" stroke-width="4"/>
+<text x="1214" y="952" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">允许目录内的静态检查</text>
+<text x="1214" y="986" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">结果 / 日志 · 不回写原工程</text>
+<text x="1214" y="1015" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">公开启动脚本禁用原生启动</text>
+<path d="M1438 856 L1438 914" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="48" y="1130" width="1080" height="150" rx="12" fill="#EDF6F3" stroke="#287F7A" stroke-width="1.5"/>
+<text x="70" y="1166" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">C  KiCad 数据与证据</text>
+<text x="76" y="1210" font-size="22" fill="#287F7A" font-weight="600" text-anchor="start">ledger.sqlite3  ·  revisions / jobs / events</text>
+<text x="76" y="1250" font-size="21" fill="#24364B" font-weight="400" text-anchor="start">design + constraints + SHA-256  →  verification  →  release manifest</text>
+<path d="M588 1070 L588 1130" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)" stroke-dasharray="7 6"/>
+<rect x="603" y="1088" width="214" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="610" y="1108" font-size="19" fill="#287F7A" font-weight="400" text-anchor="start">记录版本、事件与产物</text>
+<rect x="1164" y="1130" width="548" height="150" rx="12" fill="#FBF5E9" stroke="#AD7733" stroke-width="1.5" stroke-dasharray="8 6"/>
+<text x="1186" y="1166" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">边界：两套任务与数据域</text>
+<text x="1188" y="1210" font-size="21" fill="#24364B" font-weight="400" text-anchor="start">不共享任务库；不存在跨 CAD 统一路由。</text>
+<text x="1188" y="1250" font-size="21" fill="#24364B" font-weight="400" text-anchor="start">静态检查结果不代表完整 DRC 或可制造。</text>
+<path d="M48 1303 H1712" stroke="#BCCAD6"/>
+<text x="48" y="1334" font-size="19" fill="#63758A" font-weight="400" text-anchor="start">实线：调用 / 执行路径；虚线：可选入口或持久化关系。各框为职责分组，不表示都运行在独立进程中。</text>
+<text x="1712" y="1370" font-size="14" fill="#63758A" font-weight="400" text-anchor="end">PCB WEAVER  /  TECHNICAL ARCHITECTURE</text>
+</svg>

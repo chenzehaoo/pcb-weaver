@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1020" viewBox="0 0 1760 1020" role="img" aria-labelledby="title desc">
+<title id="title">03  版本与证据  /  Revision-bound verification</title><desc id="desc">每个版本绑定设计文件、约束和摘要。修改创建子版本；检查在临时副本上执行，记录版本摘要与报告哈希。制造发布强制重新检查，并记录清单和完整性信息。</desc>
+<defs><marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#3C6D9C" stroke-width="1.6"/></marker><marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#287F7A" stroke-width="1.6"/></marker><marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#AD7733" stroke-width="1.6"/></marker><marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#AD5552" stroke-width="1.6"/></marker><marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#63758A" stroke-width="1.6"/></marker></defs>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC","PingFang SC",Arial,sans-serif} .mono{font-family:Consolas,"Liberation Mono",monospace}</style>
+<rect x="0" y="0" width="1760" height="1020" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<text x="48" y="57" font-size="34" fill="#24364B" font-weight="700" text-anchor="start">03  版本与证据  /  Revision-bound verification</text>
+<text x="48" y="99" font-size="20" fill="#63758A" font-weight="400" text-anchor="start">工程数据身份、检查结果和制造归档三者必须指向同一版本</text>
+<path d="M48 124 H1712" stroke="#BCCAD6"/>
+<rect x="48" y="164" width="510" height="655" rx="12" fill="#EDF3FA" stroke="#3C6D9C" stroke-width="1.5"/>
+<text x="70" y="200" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">A  版本谱系</text>
+<rect x="80" y="232" width="446" height="118" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M82 244 V338" stroke="#3C6D9C" stroke-width="4"/>
+<text x="102" y="270" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">r₀  导入快照</text>
+<text x="102" y="304" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">design/ + constraints.json</text>
+<text x="102" y="333" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">revision.json + digest</text>
+<rect x="80" y="420" width="446" height="118" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M82 432 V526" stroke="#3C6D9C" stroke-width="4"/>
+<text x="102" y="458" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">r₁  布局 / 约束变更</text>
+<text x="102" y="492" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">parent = r₀</text>
+<text x="102" y="521" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">新的文件哈希与约束哈希</text>
+<rect x="80" y="608" width="446" height="148" rx="8" fill="white" stroke="#3C6D9C" stroke-width="1.5"/>
+<path d="M82 620 V744" stroke="#3C6D9C" stroke-width="4"/>
+<text x="102" y="646" font-size="24" fill="#3C6D9C" font-weight="700" text-anchor="start">r₂  布线 / 修复结果</text>
+<text x="102" y="680" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">parent = r₁</text>
+<text x="102" y="709" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">新的 revision_digest</text>
+<text x="102" y="738" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">旧版报告不能替新版放行</text>
+<path d="M303 350 L303 420" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="315" y="372" width="114" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="322" y="392" font-size="19" fill="#3C6D9C" font-weight="400" text-anchor="start">创建子版本</text>
+<path d="M303 538 L303 608" fill="none" stroke="#3C6D9C" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-blue)"/>
+<rect x="315" y="560" width="114" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="322" y="580" font-size="19" fill="#3C6D9C" font-weight="400" text-anchor="start">创建子版本</text>
+<rect x="626" y="164" width="510" height="655" rx="12" fill="#EDF6F3" stroke="#287F7A" stroke-width="1.5"/>
+<text x="648" y="200" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">B  对应版本的原生检查</text>
+<rect x="658" y="232" width="446" height="118" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M660 244 V338" stroke="#287F7A" stroke-width="4"/>
+<text x="680" y="270" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">完整性检查</text>
+<text x="680" y="304" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">重算设计文件与约束哈希</text>
+<text x="680" y="333" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">外部修改 → 拒绝继续</text>
+<rect x="658" y="420" width="446" height="118" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M660 432 V526" stroke="#287F7A" stroke-width="4"/>
+<text x="680" y="458" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">临时验证副本</text>
+<text x="680" y="492" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">KiCad 检查 + 网表 / 几何审计</text>
+<text x="680" y="521" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">受管理版本不由检查工具改写</text>
+<rect x="658" y="608" width="446" height="148" rx="8" fill="white" stroke="#287F7A" stroke-width="1.5"/>
+<path d="M660 620 V744" stroke="#287F7A" stroke-width="4"/>
+<text x="680" y="646" font-size="24" fill="#287F7A" font-weight="700" text-anchor="start">verification / v-*</text>
+<text x="680" y="680" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">verification_id + revision_digest</text>
+<text x="680" y="709" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">原生报告 + evidence_hashes</text>
+<text x="680" y="738" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">passed 或 blocked + reasons</text>
+<path d="M526 682 L590 682 L590 292 L658 292" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="421" y="832" width="134" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="428" y="852" font-size="19" fill="#287F7A" font-weight="400" text-anchor="start">绑定精确版本</text>
+<path d="M881 350 L881 420" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<path d="M881 538 L881 608" fill="none" stroke="#287F7A" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="1204" y="164" width="508" height="655" rx="12" fill="#FBF5E9" stroke="#AD7733" stroke-width="1.5"/>
+<text x="1226" y="200" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">C  显式发布与可验证归档</text>
+<rect x="1236" y="232" width="444" height="118" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M1238 244 V338" stroke="#AD7733" stroke-width="4"/>
+<text x="1258" y="270" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">build_release(r₂)</text>
+<text x="1258" y="304" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">强制发起新一轮 _verify</text>
+<text x="1258" y="333" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">不能使用缓存 pass 标记</text>
+<rect x="1236" y="420" width="444" height="118" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M1238 432 V526" stroke="#AD7733" stroke-width="4"/>
+<text x="1258" y="458" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">实际制造导出</text>
+<text x="1258" y="492" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">Gerber / 钻孔 / 贴装位置</text>
+<text x="1258" y="521" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">有原理图时核对 BOM 与 DNP</text>
+<rect x="1236" y="608" width="444" height="148" rx="8" fill="white" stroke="#AD7733" stroke-width="1.5"/>
+<path d="M1238 620 V744" stroke="#AD7733" stroke-width="4"/>
+<text x="1258" y="646" font-size="24" fill="#AD7733" font-weight="700" text-anchor="start">release-*.zip</text>
+<text x="1258" y="680" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">design + verification + manifest</text>
+<text x="1258" y="709" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">文件 SHA-256 · revision_digest</text>
+<text x="1258" y="738" font-size="20" fill="#24364B" font-weight="400" text-anchor="start">登记归档；读取时检查完整性</text>
+<path d="M1104 682 L1170 682 L1170 292 L1236 292" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="1157" y="832" width="194" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="1164" y="852" font-size="19" fill="#AD7733" font-weight="400" text-anchor="start">请求发布后重新复验</text>
+<path d="M1458 350 L1458 420" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="1468" y="372" width="134" height="27" rx="3" fill="white" stroke="none" stroke-width="1.5"/>
+<text x="1475" y="392" font-size="19" fill="#AD7733" font-weight="400" text-anchor="start">新鲜检查通过</text>
+<path d="M1458 538 L1458 608" fill="none" stroke="#AD7733" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="48" y="882" width="1664" height="42" rx="5" fill="#F4F7FA" stroke="none" stroke-width="1.5"/>
+<text x="76" y="911" font-size="22" fill="#24364B" font-weight="400" text-anchor="start" class="mono">digest = SHA256(canonical({ files: 文件哈希映射, constraints: 约束文件哈希 }))</text>
+<path d="M48 933 H1712" stroke="#BCCAD6"/>
+<text x="48" y="964" font-size="19" fill="#63758A" font-weight="400" text-anchor="start">摘要与事件链用于完整性校验和追溯，不是数字签名或第三方认证；检查覆盖不包含 SI/PI、EMC、热、安规及实板验证。</text>
+<text x="1712" y="1000" font-size="14" fill="#63758A" font-weight="400" text-anchor="end">PCB WEAVER  /  TECHNICAL ARCHITECTURE</text>
+</svg>

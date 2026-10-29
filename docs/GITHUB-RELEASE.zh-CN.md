@@ -5,19 +5,11 @@
 
 [返回首页](../README.md) · [技术架构](ARCHITECTURE.zh-CN.md) · [Altium 任务说明](ALTIUM-SERVICE-BETA.zh-CN.md)
 
-```mermaid
-flowchart LR
-    Repo["公开源码仓库"] --> KSetup["Setup.ps1"]
-    Repo --> ASetup["Setup-Altium-Service.ps1"]
-    KSetup --> KConfig["本机 .mcp.json + toolchain 配置"]
-    ASetup --> AConfig["本机 altium-service.mcp.json"]
-    KConfig --> KMCP["KiCad 主 MCP"]
-    AConfig --> AMCP["Altium 内测 MCP"]
-    AConfig --> AWorker["Start-Altium-Service.ps1"]
-    AWorker --> AJobs["独立任务库与静态检查"]
-```
+[![KiCad 与 Altium 两条独立本机链路的系统关系](assets/architecture/system-overview.svg)](assets/architecture/system-overview.svg)
 
-生成的本机配置、工程文件、任务库和历史验收资料不随源码仓库发布。下面的步骤只配置 **Altium 开发者内测服务**；KiCad 安装入口见[首页](../README.md#本机使用)。
+**图｜两个独立工程域及其执行入口。** KiCad 使用 `Setup.ps1` 生成 `.mcp.json`，由工作台或独立 Worker 执行持久任务；Altium 使用 `Setup-Altium-Service.ps1` 生成自己的配置，并单独启动服务 Worker。两套 MCP、任务库和数据域不能互相替代。
+
+生成的本机配置、工程文件、任务库和历史验收资料不随源码仓库发布。下面的步骤只配置 **Altium 开发者内测服务**；KiCad 安装入口见[部署与 MCP 接入](GETTING-STARTED.zh-CN.md)。
 
 ## 能力边界
 
